@@ -3,6 +3,8 @@ const ratings = require("./public/data/ratings.json");
 const seller = require("./public/data/seller.json");
 
 module.exports = {
+  lintOnSave:'warning',
+
   devServer: {
     before(app) {
       app.get("/api/ratings", (req, res) => {
@@ -16,4 +18,20 @@ module.exports = {
       });
     },
   },
+
+  css: {
+    loaderOptions: {
+      stylus: {
+        'resolve url': true,
+        'import': []
+      }
+    }
+  },
+
+  pluginOptions: {
+    'cube-ui': {
+      postCompile: true,
+      theme: false
+    }
+  }
 };
