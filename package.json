@@ -8,10 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "amfe-flexible": "^2.2.1",
     "axios": "^0.19.2",
+    "better-scroll": "^1.15.2",
     "core-js": "^3.6.4",
-    "cube-ui": "~1.12.15",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -24,8 +23,6 @@
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "postcss-px2rem": "^0.3.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
     "vue-cli-plugin-cube-ui": "~0.2.5",
     "vue-template-compiler": "^2.6.11"
   },

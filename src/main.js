@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import './cube-ui'
+ import Scroll from './components/scroll'
 import App from './App.vue'
-import 'amfe-flexible'
+ import '@/assets/reset.css'
+Vue.component(Scroll.name,Scroll)
 
 Vue.config.productionTip = false
 
