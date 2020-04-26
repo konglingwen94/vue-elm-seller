@@ -9,6 +9,10 @@
 }
 div.shop {
   height: 2000px;
-  border:1px solid red;
+  border:1px solid red;/*no*/
+
+
+
+
 }
 </style>

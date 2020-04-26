@@ -5,7 +5,12 @@ li {
 
 ul,
 li,div,html,body {
-  margin: 0;
-  padding: 0;
+  
   box-sizing:border-box;
+}
+
+/* custom */
+
+.icon-svg{
+  /* vertical-align:top; */
 }
