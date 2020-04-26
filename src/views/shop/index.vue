@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="favorite">
-            <div class="iconfont iconlove"></div>收藏
+            <div @touchstart="like" :class="{'is-like':isLike}" class="iconfont iconlove"></div>收藏
           </div>
         </div>
         <hr />
@@ -53,6 +53,18 @@
             <icon width="32" height="32" name="brand" />
             <span class="support-item-text">在线支付满28减5，满50减10</span>
           </div>
+          <div class="decrease support-item">
+            <icon width="32" height="32" name="brand" />
+            <span class="support-item-text">在线支付满28减5，满50减10</span>
+          </div>
+          <div class="decrease support-item">
+            <icon width="32" height="32" name="brand" />
+            <span class="support-item-text">在线支付满28减5，满50减10</span>
+          </div>
+          <div class="decrease support-item">
+            <icon width="32" height="32" name="brand" />
+            <span class="support-item-text">在线支付满28减5，满50减10</span>
+          </div>
           <!-- <div class="discount discount-one">单人精彩赛</div>
         <div class="discount discount-two">折扣二</div>
         <div class="special special-one">特价1</div>
@@ -64,10 +76,12 @@
       <div class="scene">
         <h2>商家实景</h2>
         <scroll direction="horizontal">
-          <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
-          <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
-          <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
-          <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
+          <div class="content">
+            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
+            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
+            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
+            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
+          </div>
         </scroll>
       </div>
       <div class="information">
@@ -93,31 +107,41 @@
   </scroll>
 </template>
 
-<style>
- 
-</style>
+<script>
+export default {
+  name: "page-shop",
+  data() {
+    return {
+      isLike: false
+    };
+  },
+  methods: {
+    like() {
+      this.isLike = !this.isLike;
+    }
+  }
+};
+</script>
 <style scoped lang="less">
 .shop {
   height: 100%;
   background: #eee;
   > div {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top:20px;
+    padding: 36px 38px;
     background-color: #fff;
     margin-bottom: 30px;
-    border:1px solid rgba(7, 17, 27, 0.2);
-    border-width:1px 0;
+    border: 1px solid rgba(7, 17, 27, 0.2);
+    border-width: 1px 0;
+    h2{
+      margin-bottom:22px;
+      font-size:28px;
+    }
   }
 }
 
- 
 .header {
-  height: 300px;
   padding: 34px;
-  hr {
-    width: 90%;
-  }
+font-size:20px;
   .top {
     display: flex;
     width: 100%;
@@ -137,11 +161,23 @@
     }
 
     .favorite {
+      margin-right: 10px;
+      margin-top: 4px;
       text-align: center;
+      .iconfont {
+        font-size: 40px;
+        &.is-like {
+          color: red;
+        }
+      }
+      .text {
+        text-align: center;
+      }
     }
   }
   hr {
     margin: 30px 0;
+    // width:85%;
   }
   .delivery {
     display: flex;
@@ -156,9 +192,10 @@
       width: 33%;
       :first-child {
         margin-bottom: 10px;
+        
       }
       & > span {
-        font-size: 40px;
+        font-size: 48px;
       }
     }
   }
@@ -188,10 +225,15 @@
 }
 
 .scene {
+
   padding: 20px;
   // h1 {
   // }
   .content {
+    img{
+      width:250px;
+      height: 180px;
+    }
   }
 }
 
@@ -199,7 +241,8 @@
   &-item {
     border-top: 1px solid #ccc;
     margin: 12px 0;
-    padding:30px 0;
+    padding: 30px 0;
+    line-height:1.4em;
   }
 }
 </style>
