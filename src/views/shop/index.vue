@@ -10,12 +10,24 @@
           </div>
         </div>
         <div class="favorite">
-          <div class="iconfont iconlove"></div>
-          收藏
+          <div class="iconfont iconlove"></div>收藏
         </div>
       </div>
       <hr />
-      <div class="bottom"></div>
+      <div class="delivery">
+        <div class="starting-price">
+          <div>起送价</div>
+          <span>20</span>元
+        </div>
+        <div class="freight">
+          <div class>商家配送</div>
+          <span>4</span>元
+        </div>
+        <div class="time">
+          <div>配送时间</div>
+          <span>40</span>分钟
+        </div>
+      </div>
     </div>
 
     <div class>公告</div>
@@ -55,11 +67,31 @@ div.shop {
       }
     }
 
-    .favorite{
+    .favorite {
       text-align: center;
     }
   }
-  .bottom {
+  hr {
+    margin: 30px 0;
+  }
+  .delivery {
+    display: flex;
+    width: 100%;
+    justify-content: space-beteen;
+    text-align: center;
+    .freight {
+      border: 1px solid #ccc;
+      border-width: 0 1px;
+    }
+    & > div {
+      width: 33%;
+      :first-child {
+        margin-bottom: 10px;
+      }
+      & > span {
+        font-size: 40px;
+      }
+    }
   }
 }
 </style>
