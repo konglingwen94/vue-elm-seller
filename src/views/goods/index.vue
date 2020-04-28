@@ -1,48 +1,54 @@
 <template>
-  <scroll class="scroll-container">
-    <div class="goods">
-      <scroll class="menu">
-        <ul class="menu-list">
-          <li class="menu-item" v-for="(item,index) in data" :key="index">
-            <icon v-if="item.type>0" name="brand" width="24" height="24" />
-            <span>{{ item.name}}</span>
-          </li>
-        </ul>
-      </scroll>
-      <scroll class="foods">
-        <ul class="foods-list">
-          <li class="foods-group" v-for="(item,index) in data" :key="index">
-            <dl class="foods-group-wrapper">
-              <dt class="foods-group-name">{{item.name}}</dt>
+  <!-- <scroll class="scroll-container"> -->
+  <div class="goods">
+    <scroll class="menu">
+      <ul class="menu-list">
+        <li
+        @tap="selectMenu(index)"
+          class="menu-item"
+          :class="{selected:currentIndex===index}"
+          v-for="(item,index) in data"
+          :key="index"
+        >
+          <icon v-if="item.type>0" name="brand" width="24" height="24" />
+          <span>{{ item.name}}</span>
+        </li>
+      </ul>
+    </scroll>
+    <scroll ref="foodsScroll" @scroll="onFoodScroll" class="foods">
+      <ul class="foods-list">
+        <li ref="foodsGroup" class="foods-group" v-for="(item,index) in data" :key="index">
+          <dl class="foods-group-wrapper">
+            <dt :class="{fixed:currentIndex===index}" class="foods-group-name">{{item.name}}</dt>
 
-              <dd class="foods-group-item" v-for="(food ,key) in item.foods" :key="key">
-                <div class="cover">
-                  <img :src="food.image" alt />
+            <dd class="foods-group-item" v-for="(food ,key) in item.foods" :key="key">
+              <div class="cover">
+                <img :src="food.image" alt />
+              </div>
+              <div class="intro">
+                <h2 class="title">皮蛋瘦肉粥配包子套餐</h2>
+                <p class="desc">{{food.description}}</p>
+                <div class="statistics">
+                  <span>月售{{food.sellCount}}份</span>
+                  <span>好评率100%</span>
                 </div>
-                <div class="intro">
-                  <h2 class="title">皮蛋瘦肉粥配包子套餐</h2>
-                  <p class="desc">{{food.description}}</p>
-                  <div class="statistics">
-                    <span>月售{{food.sellCount}}份</span>
-                    <span>好评率100%</span>
-                  </div>
-                  <div class="price-wrapper">
-                    ￥
-                    <span class="price">{{food.price}}</span>
-                    <del v-if="food.oldprice" class="oldprice">￥{{food.oldProce}}</del>
-                  </div>
+                <div class="price-wrapper">
+                  ￥
+                  <span class="price">{{food.price}}</span>
+                  <del v-if="food.oldprice" class="oldprice">￥{{food.oldProce}}</del>
+                </div>
 
-                  <div class="picker-wrapper">
-                    <food-picker></food-picker>
-                  </div>
+                <div class="picker-wrapper">
+                  <food-picker></food-picker>
                 </div>
-              </dd>
-            </dl>
-          </li>
-        </ul>
-      </scroll>
-    </div>
-  </scroll>
+              </div>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </scroll>
+  </div>
+  <!-- </scroll> -->
 </template>
 <script>
 import request from "@/request";
@@ -54,29 +60,61 @@ export default {
   },
   data() {
     return {
-      data: []
+      data: [],
+      sectionHeight: [0],
+      currentIndex: 0
     };
   },
-  created() {
-    request.get("/goods").then(response => {
-      this.data = response;
-    });
+  methods: {
+    selectMenu(index){
+      console.log('selectedMneu')
+      const target=this.$refs.foodsGroup[index]
+      this.$refs.foodsScroll.scrollToElement(target,300)
+      this.currentIndex=index
+    },
+    onFoodScroll({ x, y }) {
+      // console.log(y)
+      const distanceY = Math.abs(Math.round(y));
+      for (let index = 0; index < this.sectionHeight.length; index++) {
+        if (
+          distanceY >= this.sectionHeight[index] &&
+          distanceY < this.sectionHeight[index + 1]
+        ) {
+          this.currentIndex = index;
+        }
+      }
+    }
   },
-  methods: {}
+  mounted() {},
+  created() {
+    request
+      .get("/goods")
+      .then(response => {
+        this.data = response;
+      })
+      .then(() => {
+        setTimeout(() => {
+          const sections = this.$refs.foodsGroup;
+
+          sections.reduce((prevTotal, current) => {
+            const sectionHeight = prevTotal + current.clientHeight;
+            this.sectionHeight.push(sectionHeight);
+
+            return sectionHeight;
+          }, 0);
+        });
+      });
+  }
 };
 </script>
-<style  >
-.scroll-container {
-  height: 100%;
-}
-.foods {
-  height: 2000px;
-  border: 1px solid;
-}
-</style>
+ 
+ 
 <style lang="less" scoped>
 .goods {
+  position:relative;
   display: flex;
+  width: 100%;
+  height: 100%;
 }
 .menu {
   width: 160px;
@@ -88,6 +126,10 @@ export default {
   &-item {
     padding: 40px 20px;
     border-bottom: 1px solid #eee;
+      background: #f3f5f7;
+    &.selected {
+      background: #fff;
+    }
   }
 }
 .foods {
@@ -102,6 +144,13 @@ export default {
       border-left: 3px solid #ccc;
       padding-left: 9px;
       color: #93999f;
+      &.fixed{
+        // position:absolute;
+        // width:100%;
+        // margin-bottom:40px;
+        // left:0;
+        // top:0;
+      }
     }
     &-item {
       padding: 20px 0;
