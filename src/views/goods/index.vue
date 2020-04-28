@@ -29,7 +29,11 @@
                   <div class="price-wrapper">
                     ￥
                     <span class="price">{{food.price}}</span>
-                    <del class="oldprice">￥{{food.oldProce}}</del>
+                    <del v-if="food.oldprice" class="oldprice">￥{{food.oldProce}}</del>
+                  </div>
+
+                  <div class="picker-wrapper">
+                    <food-picker></food-picker>
                   </div>
                 </div>
               </dd>
@@ -42,7 +46,12 @@
 </template>
 <script>
 import request from "@/request";
+import FoodPicker from "@/components/food-picker";
+
 export default {
+  components: {
+    FoodPicker
+  },
   data() {
     return {
       data: []
@@ -105,6 +114,7 @@ export default {
         height: 114px;
       }
       .intro {
+        position: relative;
         margin-left: 18px;
         flex: 1;
         > * {
@@ -120,15 +130,22 @@ export default {
         }
         .price-wrapper {
           font-size: 20px;
-            color: red;
+          color: red;
           .price {
             font-size: 29px;
             margin-right: 8px;
-            margin-left:-4px;
+            margin-left: -4px;
           }
           .oldprice {
             color: #93999f;
           }
+        }
+
+        .picker-wrapper {
+          width: 130px;
+          position: absolute;
+          right: 30px;
+          bottom: -9px;
         }
       }
     }
