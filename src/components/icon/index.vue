@@ -36,7 +36,7 @@ export default {
 <style scoped>
 .wrapper {
   /* display: inline-block; */
-  vertical-align: middle;
+  /* vertical-align: middle; */
 }
 div{
   font-size: 0;

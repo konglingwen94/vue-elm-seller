@@ -1,20 +1,70 @@
 <template>
-  <div id="scroll-wrapper" >
-    <slot></slot>
+  <div id="scroll-wrapper" ref="scroll-wrapper" :class="direction">
+    <div class="scroller">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>
-import BetterScroll from 'better-scroll'
+import BetterScroll from "better-scroll";
 
 export default {
   name: "scroll",
-  mounted() {
-    this.scroll=  new BetterScroll('#scroll-wrapper')
+  props: {
+    direction: {
+      type: String,
+      default: "vertical"
+    },
+    probeType: {
+      type: Number,
+      default: 3
+    }
   },
+  provide() {
+    return {
+      parentScroll: this
+    };
+  },
+  inject: {
+    parentScroll: {
+      default: null
+    }
+  },
+  mounted() {
+    this._initScroll();
+  },
+  methods: {
+    _initScroll() {
+      setTimeout(() => {
+        this.scroll = new BetterScroll(this.$refs["scroll-wrapper"], {
+          scrollX: this.direction === "horizontal",
+          probeType: this.probeType,
+          tap: "tap"
+          // stopPropagation:true
+        });
+
+        // console.log(this)
+        this.scroll.on("scroll", pos => {
+          // console.log(pos);
+          this.$emit("scroll", pos);
+        });
+      }, 440);
+    },
+    scrollToElement(...arg) {
+      this.scroll.scrollToElement(...arg);
+    }
+  }
 };
 </script>
 <style scoped>
-#scroll-wrapper{
-    overflow:hidden;
+#scroll-wrapper {
+  overflow: hidden;
+  height: 100%;
+}
+.horizontal {
+  white-space: nowrap;
+}
+.horizontal > .scroller {
+  display: inline-block;
 }
 </style>
