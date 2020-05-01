@@ -9,7 +9,6 @@
           class="ratetype-item"
         >
           <span>{{option.label}}{{option.count}}</span>
-          4
         </li>
       </ul>
       <div class="rate-switch">
@@ -21,26 +20,18 @@
     <ul class="ratings-content-list">
       <li v-for="(item,index) in renderList" :key="index" class="ratings-content-list-item">
         <!-- <div> -->
-        <img
-          class="avatar"
-          width="100%"
-          height="100%"
-          src="https://img.php.cn/upload/article/000/000/006/5ea01d953886a268.jpg"
-          alt
-        />
+        <img class="avatar" width="100%" height="100%" :src="item.avatar" alt />
         <!-- </div> -->
         <div class="information">
           <div class="top">
-            <h3 class="nickname">nickname</h3>
-            <time>{{new Date() | dateFormat}}</time>
+            <h3 class="nickname">{{item.username}}</h3>
+            <time>{{new Date(item.rateTime) | dateFormat}}</time>
           </div>
           <div class="sub-desc">
             <span class="score">******</span>
             <span class="deliverytime">90分钟送达</span>
           </div>
-          <div
-            class="content"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium corporis voluptas voluptatibus error obcaecati iure vel possimus quisquam reprehenderit corrupti culpa quidem, quaerat ullam officiis porro! Architecto quasi in modi.</div>
+          <div class="content">{{item.text}}</div>
           <div class="recommendation">
             <i class="iconfont" :class="item.rateType===0 ? 'thumb-up':'thumb-down'"></i>
 
@@ -57,8 +48,7 @@ export default {
   name: "rating",
   props: {
     data: {
-      type: Array,
-      required: true
+      type: Array
     },
     rateTypeLabels: {
       type: Array
@@ -83,10 +73,13 @@ export default {
     rateTypeList() {
       return this.rateTypeOptions.map((typeItem, index) => {
         return {
-          ...item,
+          ...typeItem,
           label: this.rateTypeLabels[index],
           count: this.data.filter(item => {
-            return item.rateType === typeItem.rateType;
+            if (typeItem.type === -1) {
+              return true;
+            }
+            return item.rateType === typeItem.type;
           }).length
         };
       });
@@ -96,7 +89,12 @@ export default {
       if (this.rateType === -1) {
         renderList = this.data;
       }
-      renderList = this.data.filter(item => item.rateType === this.rateType);
+      renderList = this.data.filter(item => {
+        if (this.rateType === -1) {
+          return true;
+        }
+        return item.rateType === this.rateType;
+      });
 
       return renderList.filter(item => {
         if (this.switchType === 1) {
@@ -104,12 +102,27 @@ export default {
         }
         return true;
       });
-    },
-    toggleRateType(type) {
-      this.rateType = type;
+    }
+  },
+  filters: {
+    dateFormat(date) {
+      if (!date instanceof Date) {
+        return "";
+      }
+
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDay();
+      const hours = date.getHours();
+      const minute = date.getMinutes();
+
+      return `${year}-${month}-${day} ${hours}:${minute}`;
     }
   },
   methods: {
+    toggleRateType(type) {
+      this.rateType = type;
+    },
     toggleSwitchType() {
       if (this.switchType === 0) {
         this.switchType = 1;

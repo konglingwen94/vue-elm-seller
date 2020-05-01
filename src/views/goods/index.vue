@@ -57,8 +57,10 @@
     <div class="shopping-cart-wrapper">
       <shopping-cart @clear="clearShoppingCart" :selected-foods="shoppingCartFoods"></shopping-cart>
     </div>
-    <div v-show="showFoodDetail" class="food-detail">
-      <food-detail @backward="backward" :data="currentFood"></food-detail>
+    <div v-if="showFoodDetail" class="food-detail">
+      <scroll>
+        <food-detail @backward="backward" :data="currentFood"></food-detail>
+      </scroll>
     </div>
   </div>
 </template>
@@ -110,16 +112,12 @@ export default {
       } catch (error) {
         return [];
       }
-     
+
       for (let index = 0; index < copyData.length; index++) {
-        
         this.$set(copyData[index], "count", 0);
         for (let j = 0; j < copyData[index].foods.length; j++) {
-           
           this.$set(copyData[index].foods[j], "count", 0);
         }
-
-        
       }
 
       return copyData;
@@ -127,7 +125,7 @@ export default {
   },
   methods: {
     forward(food) {
-      console.log('----')
+      console.log("----");
       this.showFoodDetail = true;
       this.currentFood = food;
     },
@@ -298,5 +296,6 @@ export default {
   bottom: 95px;
   background: #fff;
   z-index: 888;
+  height:calc(100vh-96px);
 }
 </style>

@@ -21,7 +21,9 @@
     </div>
     <div class="info">{{data.info}}</div>
     <div class="ratings-wrapper">
-      <!-- <rating :rate-type-labels="['全部','推荐','吐槽']" :data="data.ratings"></rating> -->
+       
+        <rating :rate-type-labels="['全部','推荐','吐槽']" :data="data.ratings"></rating>
+     
     </div>
   </div>
 </template>
