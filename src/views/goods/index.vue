@@ -22,7 +22,12 @@
             <dl class="foods-group-wrapper">
               <dt :class="{fixed:currentIndex===index}" class="foods-group-name">{{item.name}}</dt>
 
-              <dd class="foods-group-item" v-for="(food ,key) in item.foods" :key="key">
+              <dd
+                @click="forward(food)"
+                class="foods-group-item"
+                v-for="(food ,key) in item.foods"
+                :key="key"
+              >
                 <div class="cover">
                   <img :src="food.image" alt />
                 </div>
@@ -52,86 +57,97 @@
     <div class="shopping-cart-wrapper">
       <shopping-cart @clear="clearShoppingCart" :selected-foods="shoppingCartFoods"></shopping-cart>
     </div>
-
-     
+    <div v-show="showFoodDetail" class="food-detail">
+      <food-detail @backward="backward" :data="currentFood"></food-detail>
+    </div>
   </div>
 </template>
 <script>
 import request from "@/request";
 import FoodPicker from "@/components/food-picker";
 import ShoppingCart from "@/components/shopping-cart";
+import FoodDetail from "@/views/food-detail";
 
 export default {
   components: {
     FoodPicker,
-    ShoppingCart
+    ShoppingCart,
+    FoodDetail
   },
   data() {
     return {
+      showFoodDetail: false,
       data: [],
       sectionHeight: [0],
       currentIndex: 0,
+      currentFood: {}
       // shopGoodsCount:[]
     };
   },
-   
+
   computed: {
-    shopGoodsCount(){
-      return this.shopGoods.map(good=>{
-        return good.foods.reduce((prev,food)=>{
-          return prev+food.count
-        },0)
-      })
+    shopGoodsCount() {
+      return this.shopGoods.map(good => {
+        return good.foods.reduce((prev, food) => {
+          return prev + food.count;
+        }, 0);
+      });
     },
-    shoppingCartFoods()
-    {
-      const shoppingCartFoods=[]
-      this.shopGoods.forEach(good=>{
-        good.foods.forEach(food=>{
-          if(food.count>0){
-            shoppingCartFoods.push(food)
+    shoppingCartFoods() {
+      const shoppingCartFoods = [];
+      this.shopGoods.forEach(good => {
+        good.foods.forEach(food => {
+          if (food.count > 0) {
+            shoppingCartFoods.push(food);
           }
-        })
-      })
-      return shoppingCartFoods
+        });
+      });
+      return shoppingCartFoods;
     },
     shopGoods() {
       try {
-        var copyData =  (this.data);
+        var copyData = this.data;
       } catch (error) {
         return [];
       }
-      // const shopGoods = [];
+     
       for (let index = 0; index < copyData.length; index++) {
-        // const good = { name: copyData[index].name, foods: [],count:0 };
-        this.$set(copyData[index],'count',0)
+        
+        this.$set(copyData[index], "count", 0);
         for (let j = 0; j < copyData[index].foods.length; j++) {
-          // good.foods.push({price:copyData[index].foods[j].price,count:0,name:copyData[index].foods[j].name})
-          this.$set(copyData[index].foods[j],'count',0)
+           
+          this.$set(copyData[index].foods[j], "count", 0);
         }
 
-        // shopGoods.push(good);
+        
       }
 
-      return copyData
+      return copyData;
     }
   },
   methods: {
-    clearShoppingCart(){
-      this.data.forEach(good=>{
-        good.foods.forEach(food=>{
-          food.count=0
-        })
-      })
+    forward(food) {
+      console.log('----')
+      this.showFoodDetail = true;
+      this.currentFood = food;
+    },
+    backward() {
+      this.currentFood = {};
+      this.showFoodDetail = false;
+    },
+    clearShoppingCart() {
+      this.data.forEach(good => {
+        good.foods.forEach(food => {
+          food.count = 0;
+        });
+      });
     },
     selectMenu(index) {
-     
       const target = this.$refs.foodsGroup[index];
       this.$refs.foodsScroll.scrollToElement(target, 300);
       this.currentIndex = index;
     },
     onFoodScroll({ x, y }) {
-       
       const distanceY = Math.abs(Math.round(y));
       for (let index = 0; index < this.sectionHeight.length; index++) {
         if (
@@ -143,7 +159,7 @@ export default {
       }
     }
   },
-   
+
   created() {
     request
       .get("/goods")
@@ -272,5 +288,15 @@ export default {
 
 .shopping-cart-wrapper {
   height: 97px;
+}
+
+.food-detail {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 95px;
+  background: #fff;
+  z-index: 888;
 }
 </style>
