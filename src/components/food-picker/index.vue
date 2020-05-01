@@ -1,10 +1,10 @@
 <template>
-  <div class="food-picker">
-    <div class="reduce-wrapper"  @tap="reduce">
+  <div class="food-picker" @click.stop>
+    <div class="reduce-wrapper"  @click="reduce">
       <i class="iconfont reduce"></i>
     </div>
     <div class="counter">{{foodInfo.count}}</div>
-    <div class="add-wrapper" @tap="add">
+    <div class="add-wrapper" @click="add">
       <i class="iconfont add"></i>
     </div>
 
@@ -28,10 +28,10 @@ export default {
       }
     },
     add(){
-      // console.log('-----')
+      
        
       this.foodInfo.count++
-      // this.$forceUpdate()
+       
     }
   }
 }
@@ -39,6 +39,7 @@ export default {
 <style lang="less" scoped>
 .food-picker {
   min-width: 180px;
+  max-width: 200px;
 
   display: flex;
   align-items: center;
