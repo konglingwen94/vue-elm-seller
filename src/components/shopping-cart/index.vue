@@ -1,16 +1,17 @@
 <template>
   <div class="shopping-card">
-    <div class="cart" @click="toggle">
+    <div class="cart" @click="toggle" :class="{await_pay:totalCount>0}">
       <div class="cart-icon">
         <img src="./shopping_cart.svg" alt />
+        <span class="badge" v-if="totalCount>0">{{totalCount}}</span>
       </div>
-      <span class="cart-price">￥ 0</span>
+      <span class="cart-price">￥ {{totalPrice}}</span>
     </div>
     <div class="desc">另需配送费￥4元</div>
-    <div class="minprice">
-      <span class="text">20元起送</span>
+    <div class="minprice" :class="{highlight:totalPrice>=20}">
+      <span class="text">{{actionText}}</span>
     </div>
-    <div class="goods-container" @click.stop v-show="visible">
+    <div class="goods-container" v-show="visible">
       <div @click="toggle" class="layer"></div>
       <div class="goods">
         <div class="head">
@@ -20,9 +21,9 @@
         <div class="goods-wrapper">
           <scroll>
             <ul class="goods-list">
-              <li v-for="(item,index) in 10" :key="index" class="goods-item">
-                <div class="name">name</div>
-                <span class="price">333</span>
+              <li v-for="(item,index) in selectedFoods" :key="index" class="goods-item">
+                <div class="name">{{item.name}}</div>
+                <span class="price">{{item.price}}</span>
 
                 <div class="action">
                   <food-picker></food-picker>
@@ -37,7 +38,7 @@
 </template>
 <script>
 import FoodPicker from "@/components/food-picker";
-import shoppingStore from "@/store/shopping-cart.js";
+// import shoppingStore from "@/store/shopping-cart.js";
 export default {
   name: "shopping-cart",
   components: {
@@ -45,11 +46,35 @@ export default {
   },
   data() {
     return {
-      goodsList: shoppingStore.goods,
+      //   goodsList: shoppingStore.goods,
       visible: false
     };
   },
-  props: {},
+  props: {
+    selectedFoods: {
+      type: Array,
+      default: () => [{ price: 10, count: 3, name: "food-1" }]
+    }
+  },
+  computed: {
+    actionText() {
+      return this.totalPrice >= 20
+        ? "去结算"
+        : this.totalPrice === 0
+        ? "￥20元起送"
+        : `还差${20 - this.totalPrice}元起送`;
+    },
+    totalCount() {
+      return this.selectedFoods.reduce((prev, current) => {
+        return prev + current.count;
+      }, 0);
+    },
+    totalPrice() {
+      return this.selectedFoods.reduce((prev, current) => {
+        return prev + current.count * current.price;
+      }, 0);
+    }
+  },
   methods: {
     toggle() {
       this.visible = !this.visible;
@@ -77,6 +102,16 @@ export default {
   position: relative;
   width: 30%;
   margin-left: 34px;
+  white-space: nowrap;
+  &.await_pay {
+    .cart-icon {
+      background: rgb(0, 160, 220);
+      color: #fff;
+    }
+    .cart-price {
+      color: #fff;
+    }
+  }
   .cart-icon {
     display: inline-block;
     z-index: 10030;
@@ -90,6 +125,17 @@ export default {
     background: #333;
     margin-right: 4px;
 
+    .badge {
+      right: -4px;
+      top: -4px;
+      text-align: center;
+      position: absolute;
+      border-radius: 16px;
+      width: 50px;
+      line-height: 34px;
+      background: red;
+      color: #fff;
+    }
     img {
       width: 50px;
       height: 50px;
@@ -113,6 +159,10 @@ export default {
   height: 100%;
   line-height: 94px;
   text-align: center;
+  &.highlight {
+    color: #fff;
+    background-color: #04b43c;
+  }
 }
 .goods-wrapper {
   height: 400px;
