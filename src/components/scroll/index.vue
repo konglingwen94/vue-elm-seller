@@ -34,15 +34,16 @@ export default {
     this._initScroll();
   },
   methods: {
-    refresh(){
-      this.scroll.refresh()
+    refresh() {
+      this.scroll.refresh();
     },
     _initScroll() {
       setTimeout(() => {
         this.scroll = new BetterScroll(this.$refs["scroll-wrapper"], {
           scrollX: this.direction === "horizontal",
           probeType: this.probeType,
-          tap: "tap"
+          tap: "tap",
+          click: true
           // stopPropagation:true
         });
 
