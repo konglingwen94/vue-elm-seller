@@ -1,17 +1,17 @@
 <template>
-  <div class="shopping-card">
-    <div class="cart">
+  <div class="shopping-card"  >
+    <div class="cart" @click="toggle">
       <div class="cart-icon">
         <img src="./shopping_cart.svg" alt />
       </div>
       <span class="cart-price">￥ 0</span>
     </div>
     <div class="desc">另需配送费￥4元</div>
-    <div class="minprice">
+    <div class="minprice"  >
       <span class="text">20元起送</span>
     </div>
-    <div class="goods-container" v-show="visible">
-      <div class="layer"></div>
+    <div class="goods-container" @click.stop v-show="visible">
+      <div @click="toggle" class="layer"></div>
       <div class="goods">
         <div class="head">
           <div class="title">购物车</div>
@@ -51,6 +51,9 @@ export default {
   },
   props: {},
   methods: {
+    toggle() {
+      this.visible = !this.visible;
+    },
     show() {
       this.visible = true;
     },
@@ -115,8 +118,8 @@ export default {
 .goods-wrapper {
   height: 400px;
   padding: 20px;
-//   position: relative;
-//   z-index: 10000;
+  //   position: relative;
+  //   z-index: 10000;
   background: #fff;
 }
 
