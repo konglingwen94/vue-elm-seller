@@ -34,6 +34,9 @@ export default {
     this._initScroll();
   },
   methods: {
+    refresh(){
+      this.scroll.refresh()
+    },
     _initScroll() {
       setTimeout(() => {
         this.scroll = new BetterScroll(this.$refs["scroll-wrapper"], {
