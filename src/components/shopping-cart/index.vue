@@ -1,5 +1,5 @@
 <template>
-  <div class="shopping-card"  >
+  <div class="shopping-card">
     <div class="cart" @click="toggle">
       <div class="cart-icon">
         <img src="./shopping_cart.svg" alt />
@@ -7,7 +7,7 @@
       <span class="cart-price">￥ 0</span>
     </div>
     <div class="desc">另需配送费￥4元</div>
-    <div class="minprice"  >
+    <div class="minprice">
       <span class="text">20元起送</span>
     </div>
     <div class="goods-container" @click.stop v-show="visible">
@@ -89,7 +89,7 @@ export default {
     height: 120px;
     background: #333;
     margin-right: 4px;
-    //   display:flex;
+
     img {
       width: 50px;
       height: 50px;
@@ -100,7 +100,6 @@ export default {
     color: #999;
     font-weight: 800;
     margin-left: 140px;
-    //   float:right;
   }
 }
 .desc {
@@ -118,8 +117,7 @@ export default {
 .goods-wrapper {
   height: 400px;
   padding: 20px;
-  //   position: relative;
-  //   z-index: 10000;
+
   background: #fff;
 }
 
@@ -138,7 +136,7 @@ export default {
   position: absolute;
   bottom: 90px;
   width: 100%;
-  //   m: 0 20px;
+
   z-index: 1000;
 }
 
@@ -171,8 +169,6 @@ export default {
       margin-right: 20px;
       color: red;
       font-size: 28px;
-    }
-    .action {
     }
   }
 }
