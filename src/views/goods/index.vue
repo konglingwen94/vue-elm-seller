@@ -50,7 +50,7 @@
       </scroll>
     </div>
     <div class="shopping-cart-wrapper">
-      <shopping-cart :selected-foods="shoppingCartFoods"></shopping-cart>
+      <shopping-cart @clear="clearShoppingCart" :selected-foods="shoppingCartFoods"></shopping-cart>
     </div>
 
      
@@ -117,6 +117,13 @@ export default {
     }
   },
   methods: {
+    clearShoppingCart(){
+      this.data.forEach(good=>{
+        good.foods.forEach(food=>{
+          food.count=0
+        })
+      })
+    },
     selectMenu(index) {
      
       const target = this.$refs.foodsGroup[index];

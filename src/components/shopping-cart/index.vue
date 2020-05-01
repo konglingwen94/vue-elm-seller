@@ -16,10 +16,10 @@
       <div class="goods">
         <div class="head">
           <div class="title">购物车</div>
-          <div class="clear">清空</div>
+          <div class="clear" @click="clear">清空</div>
         </div>
         <div class="goods-wrapper">
-          <scroll>
+          <scroll ref="scroll">
             <ul class="goods-list">
               <li v-for="(item,index) in selectedFoods" :key="index" class="goods-item">
                 <div class="name">{{item.name}}</div>
@@ -75,8 +75,26 @@ export default {
       }, 0);
     }
   },
+  watch: {
+    visible() {
+      this.$nextTick(() => {
+        this.$refs.scroll.refresh();
+      });
+    },
+    totalCount() {
+      if (this.totalCount === 0) {
+        this.hide();
+      }
+    }
+  },
   methods: {
+    clear() {
+      this.$emit('clear')
+    },
     toggle() {
+      if (this.totalCount === 0) {
+        return;
+      }
       this.visible = !this.visible;
     },
     show() {
