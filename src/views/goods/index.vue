@@ -12,6 +12,7 @@
           >
             <icon v-if="item.type>0" name="brand" width="24" height="24" />
             <span>{{ item.name}}</span>
+            <span v-if="shopGoodsCount[index]>0" class="shop_goods_count">{{shopGoodsCount[index]}}</span>
           </li>
         </ul>
       </scroll>
@@ -39,7 +40,7 @@
                   </div>
 
                   <div class="picker-wrapper">
-                    <food-picker></food-picker>
+                    <food-picker :food-info="shopGoods[index].foods[key]"></food-picker>
                   </div>
                 </div>
               </dd>
@@ -49,8 +50,10 @@
       </scroll>
     </div>
     <div class="shopping-cart-wrapper">
-      <shopping-cart></shopping-cart>
+      <shopping-cart :selected-foods="shoppingCartFoods"></shopping-cart>
     </div>
+
+     
   </div>
 </template>
 <script>
@@ -67,18 +70,61 @@ export default {
     return {
       data: [],
       sectionHeight: [0],
-      currentIndex: 0
+      currentIndex: 0,
+      // shopGoodsCount:[]
     };
+  },
+   
+  computed: {
+    shopGoodsCount(){
+      return this.shopGoods.map(good=>{
+        return good.foods.reduce((prev,food)=>{
+          return prev+food.count
+        },0)
+      })
+    },
+    shoppingCartFoods()
+    {
+      const shoppingCartFoods=[]
+      this.shopGoods.forEach(good=>{
+        good.foods.forEach(food=>{
+          if(food.count>0){
+            shoppingCartFoods.push(food)
+          }
+        })
+      })
+      return shoppingCartFoods
+    },
+    shopGoods() {
+      try {
+        var copyData =  (this.data);
+      } catch (error) {
+        return [];
+      }
+      // const shopGoods = [];
+      for (let index = 0; index < copyData.length; index++) {
+        // const good = { name: copyData[index].name, foods: [],count:0 };
+        this.$set(copyData[index],'count',0)
+        for (let j = 0; j < copyData[index].foods.length; j++) {
+          // good.foods.push({price:copyData[index].foods[j].price,count:0,name:copyData[index].foods[j].name})
+          this.$set(copyData[index].foods[j],'count',0)
+        }
+
+        // shopGoods.push(good);
+      }
+
+      return copyData
+    }
   },
   methods: {
     selectMenu(index) {
-      console.log("selectedMneu");
+     
       const target = this.$refs.foodsGroup[index];
       this.$refs.foodsScroll.scrollToElement(target, 300);
       this.currentIndex = index;
     },
     onFoodScroll({ x, y }) {
-      // console.log(y)
+       
       const distanceY = Math.abs(Math.round(y));
       for (let index = 0; index < this.sectionHeight.length; index++) {
         if (
@@ -90,7 +136,7 @@ export default {
       }
     }
   },
-  mounted() {},
+   
   created() {
     request
       .get("/goods")
@@ -115,9 +161,8 @@ export default {
  
  
 <style lang="less" scoped>
-
-.wrapper{
- height: 100%; 
+.wrapper {
+  height: 100%;
 }
 .goods {
   position: relative;
@@ -127,25 +172,32 @@ export default {
 }
 .menu {
   width: 160px;
-  height:100%;
+  height: 100%;
   &-list {
     text-align: center;
-
-    // line-height: 100px;
   }
   &-item {
     padding: 40px 20px;
     border-bottom: 1px solid #eee;
     background: #f3f5f7;
+    position: relative;
     &.selected {
       background: #fff;
+    }
+    .shop_goods_count {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 40px;
+      line-height: 39px;
+      border-radius: 19px;
+      background: red;
+      color: #fff;
     }
   }
 }
 .foods {
   flex: 1;
-  // &-list {
-  // }
 
   &-group {
     &-name {
@@ -155,11 +207,11 @@ export default {
       padding-left: 9px;
       color: #93999f;
       // &.fixed {
-        // position:absolute;
-        // width:100%;
-        // margin-bottom:40px;
-        // left:0;
-        // top:0;
+      // position:absolute;
+      // width:100%;
+      // margin-bottom:40px;
+      // left:0;
+      // top:0;
       // }
     }
     &-item {
@@ -211,7 +263,7 @@ export default {
   }
 }
 
-.shopping-cart-wrapper{
-  height:97px;
+.shopping-cart-wrapper {
+  height: 97px;
 }
 </style>

@@ -26,7 +26,7 @@
                 <span class="price">{{item.price}}</span>
 
                 <div class="action">
-                  <food-picker></food-picker>
+                  <food-picker :food-info="item"></food-picker>
                 </div>
               </li>
             </ul>
