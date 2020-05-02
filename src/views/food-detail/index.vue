@@ -76,8 +76,7 @@ export default {
 
   .content {
     padding: 20px 30px;
-    .title {
-    }
+     
     .desc {
       font-size: 20px;
       color: #ccc;
