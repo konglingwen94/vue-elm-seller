@@ -7,12 +7,14 @@
           :key="index"
           @click.stop="toggleRateType(option.type)"
           class="ratetype-item"
+          :class="[rateTypeClass(option.type),{active:option.type===rateType}]"
+          
         >
           <span>{{option.label}}{{option.count}}</span>
         </li>
       </ul>
       <div class="rate-switch">
-        <i @click.stop="toggleSwitchType" :class="{'on':switchType===1}" class="iconfont switch"></i>
+        <i @click.stop="toggleSwitchType" :class="{'on':switchType===1}" class="iconfont select"></i>
         <span class="label-text">只看有内容的评价</span>
       </div>
     </div>
@@ -27,16 +29,13 @@
             <h3 class="nickname">{{item.username}}</h3>
             <time>{{new Date(item.rateTime) | dateFormat}}</time>
           </div>
-          <div class="sub-desc">
+          <!-- <div class="sub-desc">
             <span class="score">******</span>
             <span class="deliverytime">90分钟送达</span>
-          </div>
+          </div>-->
           <div class="content">{{item.text}}</div>
           <div class="recommendation">
             <i class="iconfont" :class="item.rateType===0 ? 'thumb-up':'thumb-down'"></i>
-
-            <li class="recommendation-item">八宝粥</li>
-            <li class="recommendation-item">八宝粥</li>
           </div>
         </div>
       </li>
@@ -120,6 +119,15 @@ export default {
     }
   },
   methods: {
+    rateTypeClass(type) {
+      switch (type) {
+        case -1:
+        case 0:
+          return "positive";
+        default:
+          return "negative";
+      }
+    },
     toggleRateType(type) {
       this.rateType = type;
     },
@@ -152,14 +160,14 @@ export default {
       text-align: center;
       margin-right: 30px;
       border-radius: 2px;
-      background-color: rgba(0, 160, 220, 0.2);
+      
+        background: #d6ecf8;
       &.active {
         background-color: #00a0dc;
-        color: #fff;
+        color: #fff;    
 
-        &.bad {
-          background-color: #666;
-          color: #4d555d;
+        &.negative {
+          background-color: #656565;
         }
       }
     }

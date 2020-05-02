@@ -10,20 +10,23 @@
         <h2 class="title">{{data.name}}</h2>
         <div class="desc">
           <span class="sell-count">月售{{data.sellCount}}份</span>
-          <span class="rate">好评率{{data.rating}}</span>
+          <span class="rate">好评率{{data.rating}}%</span>
         </div>
         <div class="buy">
-          <span class="price">{{data.price}}</span>
+          <span class="price">￥{{data.price}}</span>
+          <del v-if="data.oldPrice" class="oldprice">￥{{data.oldPrice}}</del>
           <span v-if="data.count===0" class="action-button" @click="addToCart">加入购物车</span>
           <food-picker v-else :food-info="data"></food-picker>
         </div>
       </div>
     </div>
-    <div class="info">{{data.info}}</div>
+    <div v-if="data.info" class="info">
+      <h2>商品简介</h2>
+      <span class="text">{{data.info}}</span>
+    </div>
     <div class="ratings-wrapper">
-       
-        <rating :rate-type-labels="['全部','推荐','吐槽']" :data="data.ratings"></rating>
-     
+      <h3>商品评价</h3>
+      <rating :rate-type-labels="['全部','推荐','吐槽']" :data="data.ratings"></rating>
     </div>
   </div>
 </template>
@@ -102,9 +105,25 @@ export default {
   }
 }
 .info {
-  padding: 0 20px;
+  border: 1px solid #ccc;
+  border-width: 1px 0;
+  h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  .text {
+    padding-left: 10px;
+    line-height: 25px;
+  }
+  padding: 20px;
   background: #fff;
-  text-indent: 2em;
-  margin: 30px 0;
+}
+.ratings-wrapper {
+    h3{
+        padding:20px;
+    }
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+  background: #fff;
 }
 </style>

@@ -57,7 +57,7 @@
     <div class="shopping-cart-wrapper">
       <shopping-cart @clear="clearShoppingCart" :selected-foods="shoppingCartFoods"></shopping-cart>
     </div>
-    <div v-if="showFoodDetail" class="food-detail">
+    <div v-if="showFoodDetail" class="food-detail-wrapper">
       <scroll>
         <food-detail @backward="backward" :data="currentFood"></food-detail>
       </scroll>
@@ -83,7 +83,7 @@ export default {
       sectionHeight: [0],
       currentIndex: 0,
       currentFood: {}
-      // shopGoodsCount:[]
+       
     };
   },
 
@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     forward(food) {
-      console.log("----");
+      
       this.showFoodDetail = true;
       this.currentFood = food;
     },
@@ -227,13 +227,7 @@ export default {
       border-left: 3px solid #ccc;
       padding-left: 9px;
       color: #93999f;
-      // &.fixed {
-      // position:absolute;
-      // width:100%;
-      // margin-bottom:40px;
-      // left:0;
-      // top:0;
-      // }
+       
     }
     &-item {
       padding: 20px 0;
@@ -288,7 +282,7 @@ export default {
   height: 97px;
 }
 
-.food-detail {
+.food-detail-wrapper {
   position: fixed;
   left: 0;
   top: 0;
@@ -296,6 +290,6 @@ export default {
   bottom: 95px;
   background: #fff;
   z-index: 888;
-  height:calc(100vh-96px);
+  height:calc(100vh - 96px);
 }
 </style>
