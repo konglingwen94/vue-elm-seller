@@ -3,25 +3,25 @@
     <div class="ratings">
       <div class="ratings-overview">
         <div class="average">
-          <span class="score">4</span>
+          <span class="score">{{seller.score}}</span>
           <h2>综合评估</h2>
-          <p class="footnote">高于周边商家69.2%</p>
+          <p class="footnote">高于周边商家{{seller.rankRate}}%</p>
         </div>
 
         <div class="vote">
           <div class="vote-item service">
             <label for>服务态度</label>
             *******
-            <span class="label-content score">3.4</span>
+            <span class="label-content score">{{seller.serviceScore}}</span>
           </div>
           <div class="good vote-item">
             <label for>商品评分</label>
             *******
-            <span class="label-content score">3.4</span>
+            <span class="label-content score">{{seller.foodScore}}</span>
           </div>
           <div class="deliverytime vote-item">
             <label for>配送时间</label>
-            <span class="label-content time">30分钟</span>
+            <span class="label-content time">{{seller.deliveryTime}}分钟</span>
           </div>
         </div>
       </div>
@@ -30,23 +30,14 @@
         <div class="ratings-content-filter">
           <ul class="filter-options">
             <li
-              v-for="(option,index) in 3"
+              v-for="(option,index) in ratingTypes"
               :key="index"
-              :class="filterOption"
-              @touchstart.stop="selectOption('all')"
+              :class="[option.flag,{selected:selectedRatingType===option.type}]"
+              @click.stop="selectOption(option.type)"
               class="filter-options-item"
             >
-              <span>全部</span>
-              4
+              <span>{{option.label}}&nbsp;{{option.count}}</span>
             </li>
-            <!-- <li @touchstart.stop="selectOption('satisfied')" class="filter-options-item">
-              <span>满意</span>
-              4
-            </li>
-            <li class="filter-options-item" @touchstart.stop="selectOption('dissatisfied')">
-              <span>不满意</span>
-              43
-            </li>-->
           </ul>
           <div class="filter-switch">
             <i @touchstart.stop="toggleSwitch" :class="{'on':switchStatus}" class="iconfont select"></i>
@@ -55,33 +46,28 @@
         </div>
 
         <ul class="ratings-content-list">
-          <li v-for="(item,index) in ratings" :key="index" class="ratings-content-list-item">
+          <li v-for="(item,index) in renderList" :key="index" class="ratings-content-list-item">
             <!-- <div> -->
-            <img
-              class="avatar"
-              width="100%"
-              height="100%"
-              src="https://img.php.cn/upload/article/000/000/006/5ea01d953886a268.jpg"
-              alt
-            />
+            <img class="avatar" width="100%" height="100%" :src="item.avatar" alt />
             <!-- </div> -->
             <div class="information">
               <div class="top">
-                <h3 class="nickname">nickname</h3>
-                <time>{{new Date() | dateFormat}}</time>
+                <h3 class="nickname">{{item.username}}</h3>
+                <time>{{new Date(item.rateTime) | dateFormat}}</time>
               </div>
               <div class="sub-desc">
                 <span class="score">******</span>
-                <span class="deliverytime">90分钟送达</span>
+                <span class="deliverytime">{{item.deliveryTime}}分钟送达</span>
               </div>
-              <div
-                class="content"
-              >Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium corporis voluptas voluptatibus error obcaecati iure vel possimus quisquam reprehenderit corrupti culpa quidem, quaerat ullam officiis porro! Architecto quasi in modi.</div>
+              <div class="content">{{item.text}}</div>
               <div class="recommendation">
                 <i class="iconfont" :class="item.rateType===0 ? 'thumb-up':'thumb-down'"></i>
 
-                <li class="recommendation-item">八宝粥</li>
-                <li class="recommendation-item">八宝粥</li>
+                <li
+                  class="recommendation-item"
+                  v-for="(recommend,key) in item.recommend"
+                  :key="key"
+                >{{recommend}}</li>
               </div>
             </div>
           </li>
@@ -91,26 +77,52 @@
   </scroll>
 </template>
 <script>
-const ratings = [
-  {
-    rateType: 0
-  },
-  {
-    rateType: 0
-  },
-  {
-    rateType: 1
-  }
-];
+import request from "@/request";
 
 export default {
   name: "page-ratings",
   data() {
     return {
       switchStatus: false,
-      filterOption: "all",
-      ratings
+      selectedRatingType: -1,
+      ratings: [],
+      ratingTypes: [
+        {
+          type: -1,
+          flag: "all",
+          label: "全部"
+        },
+        {
+          type: 0,
+          flag: "positive",
+          label: "满意"
+        },
+        {
+          type: 1,
+          flag: "negative",
+
+          label: "不满意"
+        }
+      ]
     };
+  },
+  props:{
+    seller:Object
+  },
+  computed: {
+    renderList() {
+      let renderList = [];
+
+      if (this.selectedRatingType === -1) {
+        renderList = this.ratings;
+      } else {
+        renderList = this.ratings.filter(
+          item => item.rateType === this.selectedRatingType
+        );
+      }
+
+      return renderList.filter(item => (this.switchStatus ? item.text : true));
+    }
   },
   filters: {
     dateFormat(date) {
@@ -127,9 +139,27 @@ export default {
       return `${year}-${month}-${day} ${hours}:${minute}`;
     }
   },
+  created() {
+    request
+      .get("/ratings")
+      .then(response => {
+        this.ratings = response;
+
+        this.ratingTypes.forEach(item => {
+          if (item.type === -1) {
+            item.count = this.ratings.length;
+          } else {
+            item.count = this.ratings.filter(
+              rating => rating.rateType === item.type
+            ).length;
+          }
+        });
+      })
+      .catch();
+  },
   methods: {
     selectOption(option) {
-      this.filterOption = option;
+      this.selectedRatingType = option;
     },
     toggleSwitch() {
       this.switchStatus = !this.switchStatus;
@@ -155,12 +185,12 @@ export default {
     width: 35%;
     text-align: center;
     padding-right: 10px;
-    margin-top:19px;
+    margin-top: 19px;
     border-right: 1px solid #ccc;
     span.score {
       font-size: 40px;
       color: #ff9900;
-      margin-bottom:10px;
+      margin-bottom: 10px;
       display: inline-block;
     }
 
@@ -207,15 +237,17 @@ export default {
       text-align: center;
       margin-right: 30px;
       border-radius: 2px;
-      background-color: rgba(0, 160, 220, 0.2);
-      &.active {
-        background-color: #fff;
+      background-color: #d6ecf8;
+      &.selected {
+        background-color: #00a0dc;
         color: #fff;
-
-        &.dissatisfied {
-          background-color: #666;
-          color: #4d555d;
+        &.negative {
+          background: #656565;
         }
+      }
+      &.negative {
+        background-color: #ccc;
+        color: #fff;
       }
     }
   }
@@ -245,7 +277,7 @@ export default {
       margin-right: 20px;
     }
     .information {
-      flex:1;
+      flex: 1;
       .top {
         display: flex;
         justify-content: space-between;
@@ -270,6 +302,7 @@ export default {
       .recommendation {
         line-height: 36px;
         display: inline-flex;
+        flex-wrap: wrap;
         text-align: center;
         align-items: center;
         .iconfont {
@@ -283,6 +316,7 @@ export default {
           border-radius: 2px;
           border: solid 1px;
           margin-left: 12px;
+          margin-bottom: 12px;
         }
       }
     }
