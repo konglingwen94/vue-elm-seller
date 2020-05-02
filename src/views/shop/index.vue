@@ -4,104 +4,59 @@
       <div class="header">
         <div class="top">
           <div class="summary">
-            <h2 class="title">粥品香坊（大运村）</h2>
+            <h2 class="title">{{seller.name}}</h2>
             <div class="kpi">
               <div class="score">*****</div>
-              <div class="order">(661) 月售690单</div>
+              <div class="order">({{seller.ratingCount}}) 月售{{seller.sellCount}}单</div>
             </div>
           </div>
-          <div class="favorite">
-            <div @touchstart="like" :class="{'is-like':isLike}" class="iconfont iconlove"></div>收藏
+          <div class="favorite-wrapper">
+            <i @click="toggle" :class="{'is-like':isLike}" class="iconfont favorite"></i>
+            <div class>收藏</div>
           </div>
         </div>
         <hr />
         <div class="delivery">
           <div class="starting-price">
             <div>起送价</div>
-            <span>20</span>元
+            <span>{{seller.minPrice}}</span>元
           </div>
           <div class="freight">
             <div class>商家配送</div>
-            <span>4</span>元
+            <span>{{seller.deliveryPrice}}</span>元
           </div>
           <div class="time">
             <div>配送时间</div>
-            <span>40</span>分钟
+            <span>{{seller.deliveryTime}}</span>分钟
           </div>
         </div>
       </div>
 
       <div class="bulletin">
         <h2>公告</h2>
-        <p
-          class="description"
-        >粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深的消费者青睐，发展至今成为粥类引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。</p>
-        <div class="support">
-          <div class="decrease support-item">
-            <icon width="32" height="32" name="brand" />
-            <span class="support-item-text">在线支付满28减5，满50减10</span>
-          </div>
-          <div class="decrease support-item">
-            <icon width="32" height="32" name="brand" />
-            <span class="support-item-text">在线支付满28减5，满50减10</span>
-          </div>
-          <div class="decrease support-item">
-            <icon width="32" height="32" name="brand" />
-            <span class="support-item-text">在线支付满28减5，满50减10</span>
-          </div>
-          <div class="decrease support-item">
-            <icon width="32" height="32" name="brand" />
-            <span class="support-item-text">在线支付满28减5，满50减10</span>
-          </div>
-          <div class="decrease support-item">
-            <icon width="32" height="32" name="brand" />
-            <span class="support-item-text">在线支付满28减5，满50减10</span>
-          </div>
-          <div class="decrease support-item">
-            <icon width="32" height="32" name="brand" />
-            <span class="support-item-text">在线支付满28减5，满50减10</span>
-          </div>
-          <div class="decrease support-item">
-            <icon width="32" height="32" name="brand" />
-            <span class="support-item-text">在线支付满28减5，满50减10</span>
-          </div>
-          <!-- <div class="discount discount-one">单人精彩赛</div>
-        <div class="discount discount-two">折扣二</div>
-        <div class="special special-one">特价1</div>
-        <div class="special special-two">特价2</div>
-        <div class="invoice">开发票</div>
-          <div class="guarantee">外卖保障</div>-->
-        </div>
+        <p class="description">{{seller.bulletin}}</p>
+        <ul class="support">
+          <li v-for="(item,index) in seller.supports" :key="index" class="decrease support-item">
+            <icon width="32" height="32" :name="iconName(item.type)" />
+            <span class="support-item-text">{{item.description}}</span>
+          </li>
+        </ul>
       </div>
       <div class="scene">
         <h2>商家实景</h2>
         <scroll direction="horizontal">
-          <div class="content">
-            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
-            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
-            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
-            <img src="https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png" alt />
-          </div>
+          <ul class="content">
+            <li class="content-item" v-for="(pic ,index) in seller.pics" :key="index">
+              <img :src="pic" alt />
+            </li>
+          </ul>
         </scroll>
       </div>
       <div class="information">
         <h2>商家信息</h2>
-        <div class="information-item">该商家支持开发票，请在下单时填写好发票抬头</div>
-        <div class="kind information-item">
-          <label for>品类</label>
-          <span class="text">品类：其他菜系、包子粥店</span>
-        </div>
-        <div class="address information-item">
-          <label for>地址：</label>
-          <span>
-            北京市昌平区回龙观西大街龙观置业大厦底商B座102
-            单元1340
-          </span>
-        </div>
-        <div class="businesshours information-item">
-          <label for>营业时间：</label>
-          <span class="time">营业时间：10:00 - 20:30</span>
-        </div>
+        <ul>
+          <li class="information-item" v-for="(info,index) in seller.infos" :key="index">{{info}}</li>
+        </ul>
       </div>
     </div>
   </scroll>
@@ -112,12 +67,34 @@ export default {
   name: "page-shop",
   data() {
     return {
-      isLike: false
+      get isLike() {
+        try {
+          var seller = JSON.parse(window.localStorage.getItem("seller"));
+        } catch (error) {
+          console.error(error);
+          return false;
+        }
+         
+
+        return seller && seller.isLike;
+      },
+      set isLike(value) {
+        const seller = JSON.parse(window.localStorage.getItem("seller")) || {};
+        seller.isLike = value;
+        window.localStorage.setItem("seller", JSON.stringify(seller));
+      }
     };
   },
+  props: {
+    seller: Object
+  },
   methods: {
-    like() {
+    toggle() {
       this.isLike = !this.isLike;
+      
+    },
+    iconName(type) {
+      return "brand";
     }
   }
 };
@@ -132,16 +109,16 @@ export default {
     margin-bottom: 30px;
     border: 1px solid rgba(7, 17, 27, 0.2);
     border-width: 1px 0;
-    h2{
-      margin-bottom:22px;
-      font-size:28px;
+    h2 {
+      margin-bottom: 22px;
+      font-size: 28px;
     }
   }
 }
 
 .header {
   padding: 34px;
-font-size:20px;
+  font-size: 20px;
   .top {
     display: flex;
     width: 100%;
@@ -160,11 +137,14 @@ font-size:20px;
       }
     }
 
-    .favorite {
+    .favorite-wrapper {
       margin-right: 10px;
       margin-top: 4px;
       text-align: center;
       .iconfont {
+        display: inline-block;
+        width: 45px;
+        height: 44px;
         font-size: 40px;
         &.is-like {
           color: red;
@@ -192,7 +172,6 @@ font-size:20px;
       width: 33%;
       :first-child {
         margin-bottom: 10px;
-        
       }
       & > span {
         font-size: 48px;
@@ -225,13 +204,16 @@ font-size:20px;
 }
 
 .scene {
-
   padding: 20px;
   // h1 {
   // }
   .content {
-    img{
-      width:250px;
+    display: flex;
+    &-item {
+      margin: 0 10px;
+    }
+    img {
+      width: 250px;
       height: 180px;
     }
   }
@@ -242,7 +224,7 @@ font-size:20px;
     border-top: 1px solid #ccc;
     margin: 12px 0;
     padding: 30px 0;
-    line-height:1.4em;
+    line-height: 1.4em;
   }
 }
 </style>
