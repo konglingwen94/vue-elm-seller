@@ -1,20 +1,22 @@
 <template>
-  <div class="header">
+  <div class="header" @click.stop="showDetail=true">
     <div class="description">
-      <div class="left-cover"></div>
+      <div class="left-cover">
+        <img :src="seller.avatar" width="100%" height="100%" alt />
+      </div>
       <div class="right-intro">
         <div class="top">
           <icon src="./brand" name="brand" width="60" height="36" />
-          <span>粥品香坊（大运村）</span>
+          <span>{{seller.name}}</span>
         </div>
-        <div class="middle">蜂鸟专送 / 38分钟送达</div>
+        <div class="middle">{{seller.description}} / {{seller.deliveryTime}}分钟送达</div>
         <div class="bottom">
           <div class="icon">
-              <icon name="brand" width="30" height="20"></icon>
-            <span>在线支付满28减5，满50减10</span>
+            <icon name="brand" width="30" height="20"></icon>
+            <span>{{seller.supports && seller.supports[0].description}}</span>
           </div>
           <div class="button">
-            4
+            {{seller.supports && seller.supports.length}}
             <span class="arrow"></span>
           </div>
         </div>
@@ -23,20 +25,37 @@
     <div class="footer">
       <div class="footer-content">
         <icon name="brand" width="30" height="20" />
-        <span
-          v-ellipsis
-        >粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。</span>
+        <span v-ellipsis>{{seller.bulletin}}</span>
         <i class="arrow"></i>
       </div>
+    </div>
+
+    <div class="detail-wrapper" v-show="showDetail">
+      <header-detail @close="close" :seller="seller"></header-detail>
     </div>
   </div>
 </template>
 
 <script>
+import HeaderDetail from "@/components/header-detail";
 export default {
   name: "shop-header",
   props: {
-    msg: String
+    seller: Object
+  },
+  data() {
+    return {
+      showDetail: false
+    };
+  },
+  components: {
+    HeaderDetail
+  },
+  methods: {
+    close() {
+      console.log('close')
+      this.showDetail = false;
+    }
   }
 };
 </script>
@@ -44,8 +63,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .header {
-  background-color:rgba(7, 17, 27, 0.5);
-  color:#fff;
+  background-color: rgba(7, 17, 27, 0.5);
+  color: #fff;
 }
 .description {
   padding: 48px 24px 0 49px;
@@ -56,7 +75,6 @@ export default {
   width: 129px;
   height: 129px;
   margin-right: 30px;
-  background-image: url(http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg);
 }
 .right-intro {
   flex: 1;
@@ -64,13 +82,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height:130px;
+  height: 130px;
   .bottom {
     display: flex;
     align-items: center;
-    .icon {
-      // float: left;
-    }
+
     .button {
       background: #ccc;
       border-radius: 24px;
@@ -78,9 +94,9 @@ export default {
       line-height: 45px;
       height: 45px;
       text-align: center;
-       
+
       margin-left: auto;
-        background-color:rgba(0,0,0,.2);
+      background-color: rgba(0, 0, 0, 0.2);
       .arrow {
         border: 1px solid;
         border-width: 1px 1px 0 0; /*no */
@@ -102,17 +118,14 @@ export default {
 .footer {
   background: rgba(7, 17, 27, 0.2);
   padding: 10px;
-  // height: 56px;
-  
-  
+
   &-content {
-   
     display: flex;
     align-items: center;
 
     span {
       margin-left: 10px;
-      flex:1;
+      flex: 1;
     }
     .arrow {
       margin-left: auto;
@@ -126,5 +139,14 @@ export default {
       transform: rotate(45deg);
     }
   }
+}
+.detail-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100000;
 }
 </style>
