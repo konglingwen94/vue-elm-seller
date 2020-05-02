@@ -1,16 +1,13 @@
 <template>
   <div id="app">
-    
-      <Header></Header>
-    
-     
-      <div class="tab-bar-container">
-        <tab-bar @change-tab="handleTabChange" :initial-index="0"></tab-bar>
-      </div>
-      <div class="tab-panel-container">
-        <compnoent :is="activePanel" />
-      </div>
-     
+    <Header></Header>
+
+    <div class="tab-bar-container">
+      <tab-bar :data="tabData" @change-tab="handleTabChange" :initial-index="0"></tab-bar>
+    </div>
+    <div class="tab-panel-container">
+      <compnoent :is="activePanel" />
+    </div>
   </div>
 </template>
 
@@ -25,10 +22,26 @@ const mapDynamicComponent = {
   2: "ratings",
   3: "shop"
 };
+
+const tabData = [
+  {
+    label: "商品",
+    id: 1
+  },
+  {
+    label: "评论",
+    id: 2
+  },
+  {
+    label: "商家",
+    id: 3
+  }
+];
 export default {
   name: "App",
   data() {
     return {
+      tabData,
       activePanel: "goods"
     };
   },
@@ -50,10 +63,8 @@ export default {
 
 <style>
  
-.tab-bar-container{
-  /* height:10vh; */
-}
 .tab-panel-container {
-  height: 60vh;
+  height: calc(100vh - 257px - 90px);
+  color:#07111b;
 }
 </style>
