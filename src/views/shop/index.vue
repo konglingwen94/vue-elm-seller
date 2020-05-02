@@ -74,7 +74,6 @@ export default {
           console.error(error);
           return false;
         }
-         
 
         return seller && seller.isLike;
       },
@@ -91,10 +90,20 @@ export default {
   methods: {
     toggle() {
       this.isLike = !this.isLike;
-      
     },
     iconName(type) {
-      return "brand";
+      switch (type) {
+        case 0:
+          return "decrease";
+        case 1:
+          return "discount";
+        case 2:
+          return "special";
+        case 3:
+          return "invoice";
+        case 4:
+          return "guarantee";
+      }
     }
   }
 };
@@ -190,7 +199,8 @@ export default {
   .support {
     .support-item {
       &-text {
-        margin-left: 9px;
+        margin-left: 4px;
+        vertical-align: super;
       }
       padding-left: 4px;
       padding-top: 34px;

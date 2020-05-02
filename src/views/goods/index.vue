@@ -10,7 +10,7 @@
             v-for="(item,index) in data"
             :key="index"
           >
-            <icon v-if="item.type>0" name="brand" width="24" height="24" />
+            <icon v-if="item.type>0" :name="getIconName(item.type)" width="24" height="24" />
             <span>{{ item.name}}</span>
             <span v-if="shopGoodsCount[index]>0" class="shop_goods_count">{{shopGoodsCount[index]}}</span>
           </li>
@@ -83,7 +83,6 @@ export default {
       sectionHeight: [0],
       currentIndex: 0,
       currentFood: {}
-       
     };
   },
 
@@ -124,8 +123,19 @@ export default {
     }
   },
   methods: {
+    getIconName(type) {
+      switch (type) {
+        case 1:
+          return "discount";
+        case 2:
+          return "special";
+        case 3:
+          return "invoice";
+        case 4:
+          return "guarantee";
+      }
+    },
     forward(food) {
-      
       this.showFoodDetail = true;
       this.currentFood = food;
     },
@@ -227,7 +237,6 @@ export default {
       border-left: 3px solid #ccc;
       padding-left: 9px;
       color: #93999f;
-       
     }
     &-item {
       padding: 20px 0;
@@ -290,6 +299,6 @@ export default {
   bottom: 95px;
   background: #fff;
   z-index: 888;
-  height:calc(100vh - 96px);
+  height: calc(100vh - 96px);
 }
 </style>

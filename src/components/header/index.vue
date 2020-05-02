@@ -6,13 +6,13 @@
       </div>
       <div class="right-intro">
         <div class="top">
-          <icon src="./brand" name="brand" width="60" height="36" />
-          <span>{{seller.name}}</span>
+          <icon src="./brand" name="brand" width="60" height="35" />
+          <span class="name">{{seller.name}}</span>
         </div>
         <div class="middle">{{seller.description}} / {{seller.deliveryTime}}分钟送达</div>
         <div class="bottom">
           <div class="icon">
-            <icon name="brand" width="30" height="20"></icon>
+            <icon name="decrease" width="30" height="20"></icon>
             <span>{{seller.supports && seller.supports[0].description}}</span>
           </div>
           <div class="button">
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     close() {
-      console.log('close')
+      console.log("close");
       this.showDetail = false;
     }
   }
@@ -83,6 +83,12 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   height: 130px;
+  .name {
+    vertical-align: top;
+    margin-left: 7px;
+    font-size: 32px;
+  }
+
   .bottom {
     display: flex;
     align-items: center;
