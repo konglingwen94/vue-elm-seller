@@ -1,16 +1,30 @@
 ul,
-li {
+li ,dl,dd,dt{
   list-style-type: none;
+  margin:0;
+  padding:0;
 }
 
 ul,
-li,div,html,body {
-  
-  box-sizing:border-box;
+li,
+div,
+html,
+body {
+  box-sizing: border-box;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-weight:normal;
+}
 /* custom */
 
-.icon-svg{
+.icon-svg {
   /* vertical-align:top; */
 }
