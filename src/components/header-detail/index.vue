@@ -1,27 +1,27 @@
 <template>
   <div class="header-detail" @click.stop>
     <div class="header">
-      <h1>{{seller.name}}</h1>
+      <h2>{{seller.name}}</h2>
       <div class>******</div>
     </div>
     <div class="supports">
-      <div class="title-divider">优惠信息</div>
+      <h3 class="title-divider">优惠信息</h3>
       <div class="supports-content">
         <ul>
           <li v-for="(item ,index) in seller.supports" :key="index" class="supports-content-item">
-            <icon name="brand"></icon>
+            <icon :name="iconName(item.type)"></icon>
             <span class="text">{{item.description}}</span>
           </li>
         </ul>
       </div>
     </div>
     <div class="bulletin">
-      <div class="title-divider">商家公告</div>
+      <h3 class="title-divider">商家公告</h3>
       <div class="bulletin-content">{{seller.bulletin}}</div>
     </div>
 
-    <div class="close">
-      <span @click="$emit('close')"></span>
+    <div class="close-wrapper">
+      <span class="iconfont close" @click="$emit('close')"></span>
     </div>
   </div>
 </template>
@@ -30,6 +30,22 @@ export default {
   name: "header-detail",
   props: {
     seller: Object
+  },
+  methods: {
+    iconName(type) {
+      switch (type) {
+        case 0:
+          return "decrease";
+        case 1:
+          return "discount";
+        case 2:
+          return "special";
+        case 3:
+          return "invoice";
+        case 4:
+          return "guarantee";
+      }
+    }
   }
 };
 </script>
@@ -37,11 +53,12 @@ export default {
 .header-detail {
   padding: 70px;
   .header {
-      text-align: center;
-    h1 {
-      margin-bottom: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    h2{
+      margin-bottom: 50px;
     }
-    margin-bottom:20px;
   }
   .title-divider {
     position: relative;
@@ -51,7 +68,7 @@ export default {
     &:after {
       content: "";
       position: absolute;
-      width: 40%;
+      width: 35%;
       top: 50%;
       border-top: 2px solid #aaa;
     }
@@ -83,15 +100,15 @@ export default {
       line-height: 2em;
     }
   }
-  .close {
-    margin-top: 40px;
+  .close-wrapper {
+    margin-top: 70px;
     text-align: center;
     span {
       display: inline-block;
       width: 40px;
       height: 40px;
-      transform: rotate(90deg);
-      border: 1px solid;
+      color: #fff;
+      font-size: 50px;
     }
   }
 }

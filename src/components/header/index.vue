@@ -24,7 +24,7 @@
     </div>
     <div class="footer">
       <div class="footer-content">
-        <icon name="brand" width="30" height="20" />
+        <icon name="bulletin" width="30" height="20" />
         <span v-ellipsis>{{seller.bulletin}}</span>
         <i class="arrow"></i>
       </div>
@@ -142,11 +142,12 @@ export default {
 }
 .detail-wrapper {
   position: fixed;
+  touch-action: none;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 100000;
 }
 </style>
