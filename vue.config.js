@@ -3,8 +3,8 @@ const ratings = require("./public/data/ratings.json");
 const seller = require("./public/data/seller.json");
 
 module.exports = {
-  lintOnSave:'warning',
-
+  lintOnSave: "warning",
+  publicPath: process.env.NODE_ENV !== "production" ? "/" : "./",
   devServer: {
     before(app) {
       app.get("/api/ratings", (req, res) => {
@@ -18,6 +18,4 @@ module.exports = {
       });
     },
   },
-
-   
 };

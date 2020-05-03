@@ -87,9 +87,7 @@ export default {
       }
     }
   },
-  created(){
-    this.pay()
-  },
+  
   methods: {
 
     async pay(){

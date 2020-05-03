@@ -1,9 +1,20 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "/api",
+  baseURL: process.env.NODE_ENV !== "production" ? "/api" : "./data",
 });
+instance.interceptors.request.use(
+  (config) => {
+    if (process.env.NODE_ENV === "production") {
+      
+      config.url += ".json";
+       
+    }
 
+    return Promise.resolve(config);
+  },
+  (error) => Promise.reject(error)
+);
 instance.interceptors.response.use(
   (response) => {
     if (response.data.errno === 0) {
