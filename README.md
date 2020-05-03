@@ -1,24 +1,37 @@
-# vue-elm-sell
+# vue-elm-mall
 
-## Project setup
+## 线上预览
+
+[https://konglingwen94.github.io/vue-elm-sell/dist](https://konglingwen94.github.io/vue-elm-sell/dist)
+
+## 安装依赖
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 开启一个具有热重载功能的开发服务器
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 构建项目
+
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+ 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ 
+
+## 项目截图
+
+![vue-elm-sell](./screenshots/good.png)
+![vue-elm-sell](./screenshots/rating.png)
+![vue-elm-sell](./screenshots/shop.png)
+![vue-elm-sell](./screenshots/food-detail.png)
+![vue-elm-sell](./screenshots/header-detail.png)
+![vue-elm-sell](./screenshots/alert.png)
+![vue-elm-sell](./screenshots/confirm.png)
