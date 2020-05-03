@@ -25,9 +25,9 @@ npm run build
 ## 项目截图
 
 <img src="./screenshots/good.png" width="40%">
-<img src="./screenshots/rating.png">
-<img src="./screenshots/shop.png">
-<img src="./screenshots/food-detail.png">
-<img src="./screenshots/header-detail.png">
-<img src="./screenshots/alert.png">
-<img src="./screenshots/confirm.png">
+<img src="./screenshots/rating.png" width="40%">
+<img src="./screenshots/shop.png" width="40%">
+<img src="./screenshots/food-detail.png" width="40%">
+<img src="./screenshots/header-detail.png" width="40%">
+<img src="./screenshots/alert.png" width="40%">
+<img src="./screenshots/confirm.png" width="40%">
