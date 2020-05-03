@@ -24,7 +24,7 @@ npm run build
 
 ## 项目截图
 
-<img src="./screenshots/good.png">
+<img src="./screenshots/good.png" width="40%">
 <img src="./screenshots/rating.png">
 <img src="./screenshots/shop.png">
 <img src="./screenshots/food-detail.png">
