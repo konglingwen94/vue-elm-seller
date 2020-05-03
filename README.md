@@ -22,16 +22,12 @@ npm run serve
 npm run build
 ```
 
- 
-
- 
-
 ## 项目截图
 
-![vue-elm-sell](./screenshots/good.png)
-![vue-elm-sell](./screenshots/rating.png)
-![vue-elm-sell](./screenshots/shop.png)
-![vue-elm-sell](./screenshots/food-detail.png)
-![vue-elm-sell](./screenshots/header-detail.png)
-![vue-elm-sell](./screenshots/alert.png)
-![vue-elm-sell](./screenshots/confirm.png)
+<img src="./screenshots/good.png">
+<img src="./screenshots/rating.png">
+<img src="./screenshots/shop.png">
+<img src="./screenshots/food-detail.png">
+<img src="./screenshots/header-detail.png">
+<img src="./screenshots/alert.png">
+<img src="./screenshots/confirm.png">
