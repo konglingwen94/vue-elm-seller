@@ -2,7 +2,9 @@
   <div class="header-detail" @click.stop>
     <div class="header">
       <h2>{{seller.name}}</h2>
-      <div class>******</div>
+      <div class>
+          <star-score></star-score>
+      </div>
     </div>
     <div class="supports">
       <h3 class="title-divider">优惠信息</h3>

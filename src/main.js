@@ -1,6 +1,7 @@
 import Vue from 'vue'
  import Scroll from './components/scroll'
  import Icon from './components/icon'
+ import StarScore from './components/star-score'
 import App from './App.vue'
 import directive from './helper/directive'
 // 引入font
@@ -16,6 +17,7 @@ import 'normalize.css'
 import './assets/reset.css'
 Vue.component(Scroll.name,Scroll)
 Vue.component(Icon.name,Icon)
+Vue.component(StarScore.name,StarScore)
 
 Vue.config.productionTip = false
 
