@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header :seller="seller"></Header>
 
     <div class="tab-bar-container">
       <tab-bar :data="tabData" @change-tab="handleTabChange" :initial-index="0"></tab-bar>
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       tabData,
-      activePanel: "ratings",
+      activePanel: "shop",
       seller:{}
     };
   },

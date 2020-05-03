@@ -11,12 +11,12 @@
         <div class="vote">
           <div class="vote-item service">
             <label for>服务态度</label>
-            *******
+           <star-score :score="seller.serviceScore"></star-score>
             <span class="label-content score">{{seller.serviceScore}}</span>
           </div>
           <div class="good vote-item">
             <label for>商品评分</label>
-            *******
+           <star-score :score="seller.foodScore"></star-score>
             <span class="label-content score">{{seller.foodScore}}</span>
           </div>
           <div class="deliverytime vote-item">
@@ -56,7 +56,9 @@
                 <time>{{new Date(item.rateTime) | dateFormat}}</time>
               </div>
               <div class="sub-desc">
-                <span class="score">******</span>
+                <span class="score">
+                  <star-score :score="item.score" size="small"></star-score>
+                </span>
                 <span class="deliverytime">{{item.deliveryTime}}分钟送达</span>
               </div>
               <div class="content">{{item.text}}</div>

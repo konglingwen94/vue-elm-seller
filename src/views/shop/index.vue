@@ -6,7 +6,9 @@
           <div class="summary">
             <h2 class="title">{{seller.name}}</h2>
             <div class="kpi">
-              <div class="score">*****</div>
+              <div class="score">
+                <star-score :score="seller.score"></star-score>
+              </div>
               <div class="order">({{seller.ratingCount}}) 月售{{seller.sellCount}}单</div>
             </div>
           </div>

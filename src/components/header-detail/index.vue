@@ -3,7 +3,7 @@
     <div class="header">
       <h2>{{seller.name}}</h2>
       <div class>
-          <star-score></star-score>
+          <star-score size="middle" :score="seller.score"></star-score>
       </div>
     </div>
     <div class="supports">
