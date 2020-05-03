@@ -4,43 +4,56 @@
       <div class="header">
         <div class="top">
           <div class="summary">
-            <h2 class="title">{{seller.name}}</h2>
+            <h2 class="title">{{ seller.name }}</h2>
             <div class="kpi">
               <div class="score">
                 <star-score :score="seller.score"></star-score>
               </div>
-              <div class="order">({{seller.ratingCount}}) 月售{{seller.sellCount}}单</div>
+              <div class="order">
+                ({{ seller.ratingCount }}) 月售{{ seller.sellCount }}单
+              </div>
             </div>
           </div>
           <div class="favorite-wrapper">
-            <i @click="toggle" :class="{'is-like':isLike}" class="iconfont favorite"></i>
-            <div class>收藏</div>
+            <i
+              @click="toggle"
+              :class="{ 'is-like': isLike }"
+              class="iconfont favorite"
+            ></i>
+            <div class>{{ isLike ? "已收藏" : "收藏" }}</div>
           </div>
         </div>
         <hr />
         <div class="delivery">
           <div class="starting-price">
             <div>起送价</div>
-            <span>{{seller.minPrice}}</span>元
+            <span>{{ seller.minPrice }}</span
+            >元
           </div>
           <div class="freight">
             <div class>商家配送</div>
-            <span>{{seller.deliveryPrice}}</span>元
+            <span>{{ seller.deliveryPrice }}</span
+            >元
           </div>
           <div class="time">
             <div>配送时间</div>
-            <span>{{seller.deliveryTime}}</span>分钟
+            <span>{{ seller.deliveryTime }}</span
+            >分钟
           </div>
         </div>
       </div>
 
       <div class="bulletin">
         <h2>公告</h2>
-        <p class="description">{{seller.bulletin}}</p>
+        <p class="description">{{ seller.bulletin }}</p>
         <ul class="support">
-          <li v-for="(item,index) in seller.supports" :key="index" class="decrease support-item">
+          <li
+            v-for="(item, index) in seller.supports"
+            :key="index"
+            class="decrease support-item"
+          >
             <icon width="32" height="32" :name="iconName(item.type)" />
-            <span class="support-item-text">{{item.description}}</span>
+            <span class="support-item-text">{{ item.description }}</span>
           </li>
         </ul>
       </div>
@@ -48,7 +61,11 @@
         <h2>商家实景</h2>
         <scroll direction="horizontal">
           <ul class="content">
-            <li class="content-item" v-for="(pic ,index) in seller.pics" :key="index">
+            <li
+              class="content-item"
+              v-for="(pic, index) in seller.pics"
+              :key="index"
+            >
               <img :src="pic" alt />
             </li>
           </ul>
@@ -57,7 +74,13 @@
       <div class="information">
         <h2>商家信息</h2>
         <ul>
-          <li class="information-item" v-for="(info,index) in seller.infos" :key="index">{{info}}</li>
+          <li
+            class="information-item"
+            v-for="(info, index) in seller.infos"
+            :key="index"
+          >
+            {{ info }}
+          </li>
         </ul>
       </div>
     </div>
@@ -83,11 +106,11 @@ export default {
         const seller = JSON.parse(window.localStorage.getItem("seller")) || {};
         seller.isLike = value;
         window.localStorage.setItem("seller", JSON.stringify(seller));
-      }
+      },
     };
   },
   props: {
-    seller: Object
+    seller: Object,
   },
   methods: {
     toggle() {
@@ -106,8 +129,8 @@ export default {
         case 4:
           return "guarantee";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="less">

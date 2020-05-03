@@ -32,7 +32,7 @@
                   <img :src="food.image" alt />
                 </div>
                 <div class="intro">
-                  <h2 class="title">皮蛋瘦肉粥配包子套餐</h2>
+                  <h3 class="title">{{food.name}}</h3>
                   <p class="desc">{{food.description}}</p>
                   <div class="statistics">
                     <span>月售{{food.sellCount}}份</span>
