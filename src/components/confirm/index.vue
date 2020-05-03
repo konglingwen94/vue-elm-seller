@@ -22,6 +22,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .confirm {
+  z-index: 999999;
+  touch-action:none;
   display: flex;
   text-align: center;
   width: 100%;

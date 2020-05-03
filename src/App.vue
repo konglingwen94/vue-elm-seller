@@ -6,13 +6,13 @@
       <tab-bar :data="tabData" @change-tab="handleTabChange" :initial-index="0"></tab-bar>
     </div>
     <div class="tab-panel-container">
-      <compnoent :is="activePanel" :seller="seller"/>
+      <compnoent :is="activePanel" :seller="seller" />
     </div>
   </div>
 </template>
 
 <script>
-import request from './request'
+import request from "./request";
 import TabBar from "./components/tab-bar";
 import Goods from "./views/goods/index.vue";
 import Shop from "./views/shop/index.vue";
@@ -43,14 +43,17 @@ export default {
   data() {
     return {
       tabData,
-      activePanel: "shop",
-      seller:{}
+      activePanel: "goods",
+      seller: {}
     };
   },
-  created(){
-    request.get('/seller').then(response=>{
-      this.seller=response
-    }).catch()
+    created() {
+    request
+      .get("/seller")
+      .then(response => {
+        this.seller = response;
+      })
+      .catch();
   },
   methods: {
     handleTabChange(id) {
@@ -69,9 +72,8 @@ export default {
 </script>
 
 <style>
- 
 .tab-panel-container {
   height: calc(100vh - 257px - 90px);
-  color:#07111b;
+  color: #07111b;
 }
 </style>

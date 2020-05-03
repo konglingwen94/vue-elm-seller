@@ -8,7 +8,7 @@
       <span class="cart-price">￥ {{totalPrice}}</span>
     </div>
     <div class="desc">另需配送费￥4元</div>
-    <div class="minprice" :class="{highlight:totalPrice>=20}">
+    <div @click="pay" class="minprice" :class="{highlight:totalPrice>=20}">
       <span class="text">{{actionText}}</span>
     </div>
     <div class="goods-container" v-show="visible">
@@ -87,9 +87,30 @@ export default {
       }
     }
   },
+  created(){
+    this.pay()
+  },
   methods: {
-    clear() {
-      this.$emit('clear')
+
+    async pay(){
+      try {
+        await this.$alert('支付','您需要支付'+this.totalPrice+'元','确定')
+      } catch (error) {
+        return
+      }
+    },
+    async clear() {
+      try {
+        var result = await this.$confirm("清空购物车？");
+      } catch (error) {
+        return;
+         
+      }
+
+      
+      if (result === "confirm") {
+        this.$emit("clear");
+      }
     },
     toggle() {
       if (this.totalCount === 0) {
