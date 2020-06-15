@@ -4,6 +4,7 @@ const seller = require("./public/data/seller.json");
 
 module.exports = {
   lintOnSave: "warning",
+  outputDir: "server/dist",
   publicPath: process.env.NODE_ENV !== "production" ? "/" : "./",
   devServer: {
     before(app) {

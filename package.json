@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "server":"node server/app.js",
+    "deploy":"scp -r server root@123.56.124.33:/var/www/vue-sell"
   },
   "dependencies": {
     "axios": "^0.19.2",
