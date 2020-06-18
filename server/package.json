@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "pm2 start app.js --name=\"vue-sell\""
   },
   "keywords": [],
   "author": "",
