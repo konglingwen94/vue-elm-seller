@@ -2,7 +2,7 @@
 
 ## 线上预览
 
-[https://konglingwen94.github.io/vue-elm-sell/dist](https://konglingwen94.github.io/vue-elm-sell/dist)
+[http://123.56.124.33:5000/](http://123.56.124.33:5000/)
 
 ## 安装依赖
 
