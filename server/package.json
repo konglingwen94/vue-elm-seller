@@ -6,8 +6,13 @@
   "scripts": {
     "start": "pm2 start app.js --name=\"vue-sell\""
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vue-sell",
+    "vue-mall",
+    "vue-app",
+    "vue-webapp"
+  ],
+  "author": "konglingwen",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
