@@ -37,6 +37,7 @@ npm run build
 - [x] 商家详情弹窗
 - [ ] 商品滚动列表菜单标题吸顶
 - [ ] 页面布局优化
+- [ ] 添加商品到购物车时的动画效果
 
 ## 技术栈
 
@@ -125,4 +126,4 @@ npm run build
 
 ## 支持
 
-本项目是借鉴 [https://github.com/ustbhuangyi/vue-sell](https://github.com/ustbhuangyi/vue-sell)此应用界面功能由个人独立完成（源代码不同）。项目技术实现上都是自己精心思考研究后开发出来的，与此同时也练习了一次`vue`项目的开发流程，个人完成项目开源后也是收获满满。希望对看到此开源项目的您会有技术上的帮助，喜欢的话请右上角`star`一下:grin:，谢谢！
+本项目是借鉴 [https://github.com/ustbhuangyi/vue-sell](https://github.com/ustbhuangyi/vue-sell)此应用界面和功能个人独立开发完成（源代码完全不同）。项目技术实现上都是自己精心思考研究后开发出来的，与此同时也进一步提高了对`vue`技术栈的理解，个人完成项目部署上线后也是感到收获满满。希望对看到此开源项目的您会有技术上的帮助，喜欢的话请右上角`star`一下:grin:，谢谢！
