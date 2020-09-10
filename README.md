@@ -1,4 +1,4 @@
-# vue-elm-mall
+# vue-elm-sell
 
 ## 线上预览
 
@@ -128,4 +128,9 @@ npm run build
 
 ## 支持
 
-本项目是受 [https://github.com/ustbhuangyi/vue-sell](https://github.com/ustbhuangyi/vue-sell)此应用界面功能的启发并由个人独立完成（源代码不同）。项目技术实现上都是自己精心思考研究后开发出来的，与此同时也练习了一次`vue`项目的开发流程，个人完成项目开源后也有很大的收获。希望对看到此项目的你在学习上能有所帮助，喜欢本项目请右上角`star`一下:grin:，谢谢！我会持续开源更多好玩有趣的项目出来。
+本项目是受 [https://github.com/ustbhuangyi/vue-sell](https://github.com/ustbhuangyi/vue-sell)此应用界面功能的启发并由个人独立开发完成。项目技术实现上都是自己精心思考研究后开发出来的，与此同时也熟练了一遍`vue`项目的开发流程，个人完成项目开源后也有很大的收获。希望对看到此项目的你在学习上能有所帮助，喜欢本项目请右上角`star`一下:grin:，谢谢！我会持续开源更多好玩有趣的项目出来。
+
+[项目总结](https://github.com/konglingwen94/vue-elm-sell/issues/4)
+
+[博客总结](https://juejin.im/post/6844904202624303118)
+
