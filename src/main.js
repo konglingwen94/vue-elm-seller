@@ -15,6 +15,9 @@ import Alert from './components/alert/main.js'
 import 'lib-flexible'
 import 'normalize.css'
 import './assets/reset.css'
+
+Vue.config.devtools=true
+
 // 注册自定义指令
 Vue.use(directive)
 // 注册confirm 组件

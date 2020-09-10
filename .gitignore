@@ -20,5 +20,10 @@ yarn-error.log*
 *.sln
 *.sw?
 
+
+# Build files
+
+/server/dist
+
 # Deploy files
-deploy.sh
+deploy.sh.local
