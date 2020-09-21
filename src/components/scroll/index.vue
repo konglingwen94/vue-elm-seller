@@ -44,12 +44,12 @@ export default {
           probeType: this.probeType,
           tap: "tap",
           click: true
-          // stopPropagation:true
+           
         });
 
-        // console.log(this)
+         
         this.scroll.on("scroll", pos => {
-          // console.log(pos);
+           
           this.$emit("scroll", pos);
         });
       }, 440);

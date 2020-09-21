@@ -1,61 +1,88 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="!loading">
     <div class="goods">
       <scroll class="menu">
         <ul class="menu-list">
           <li
             @tap="selectMenu(index)"
             class="menu-item"
-            :class="{selected:currentIndex===index}"
-            v-for="(item,index) in data"
+            :class="{ selected: currentIndex === index }"
+            v-for="(item, index) in data"
             :key="index"
           >
-            <icon v-if="item.type>0" :name="getIconName(item.type)" width="24" height="24" />
-            <span>{{ item.name}}</span>
-            <span v-if="shopGoodsCount[index]>0" class="shop_goods_count">{{shopGoodsCount[index]}}</span>
+            <icon
+              v-if="item.type > 0"
+              :name="getIconName(item.type)"
+              width="24"
+              height="24"
+            />
+            <span>{{ item.name }}</span>
+            <span v-if="shopGoodsCount[index] > 0" class="shop_goods_count">{{
+              shopGoodsCount[index]
+            }}</span>
           </li>
         </ul>
       </scroll>
-      <scroll ref="foodsScroll" @scroll="onFoodScroll" class="foods">
-        <ul class="foods-list">
-          <li ref="foodsGroup" class="foods-group" v-for="(item,index) in data" :key="index">
-            <dl class="foods-group-wrapper">
-              <dt :class="{fixed:currentIndex===index}" class="foods-group-name">{{item.name}}</dt>
+      <div class="foodsScroll-wrapper">
+        <!-- 固定在顶部的食品类型名称 -->
+        <div ref="stickyTitle" class="foods-title--sticky">
+          {{ data[currentIndex].name }}
+        </div>
+        <scroll ref="foodsScroll" @scroll="onFoodScroll" class="foods">
+          <ul class="foods-list">
+            <li
+              ref="foodsGroup"
+              class="foods-group"
+              v-for="(item, index) in data"
+              :key="index"
+            >
+              <dl class="foods-group-wrapper">
+                <dt class="foods-group-name">
+                  {{ item.name }}
+                </dt>
 
-              <dd
-                @click="forward(food)"
-                class="foods-group-item"
-                v-for="(food ,key) in item.foods"
-                :key="key"
-              >
-                <div class="cover">
-                  <img :src="food.image" alt />
-                </div>
-                <div class="intro">
-                  <h3 class="title">{{food.name}}</h3>
-                  <p class="desc">{{food.description}}</p>
-                  <div class="statistics">
-                    <span>月售{{food.sellCount}}份</span>
-                    <span>好评率100%</span>
+                <dd
+                  @click="forward(food)"
+                  class="foods-group-item"
+                  v-for="(food, key) in item.foods"
+                  :key="key"
+                >
+                  <div class="cover">
+                    <img :src="food.image" alt />
                   </div>
-                  <div class="price-wrapper">
-                    ￥
-                    <span class="price">{{food.price}}</span>
-                    <del v-if="food.oldprice" class="oldprice">￥{{food.oldProce}}</del>
-                  </div>
+                  <div class="intro">
+                    <h3 class="title">{{ food.name }}</h3>
+                    <p class="desc">{{ food.description }}</p>
+                    <div class="statistics">
+                      <span>月售{{ food.sellCount }}份</span>
+                      <span>好评率100%</span>
+                    </div>
+                    <div class="price-wrapper">
+                      ￥
+                      <span class="price">{{ food.price }}</span>
+                      <del v-if="food.oldprice" class="oldprice"
+                        >￥{{ food.oldProce }}</del
+                      >
+                    </div>
 
-                  <div class="picker-wrapper">
-                    <food-picker :food-info="shopGoods[index].foods[key]"></food-picker>
+                    <div class="picker-wrapper">
+                      <food-picker
+                        :food-info="shopGoods[index].foods[key]"
+                      ></food-picker>
+                    </div>
                   </div>
-                </div>
-              </dd>
-            </dl>
-          </li>
-        </ul>
-      </scroll>
+                </dd>
+              </dl>
+            </li>
+          </ul>
+        </scroll>
+      </div>
     </div>
     <div class="shopping-cart-wrapper">
-      <shopping-cart @clear="clearShoppingCart" :selected-foods="shoppingCartFoods"></shopping-cart>
+      <shopping-cart
+        @clear="clearShoppingCart"
+        :selected-foods="shoppingCartFoods"
+      ></shopping-cart>
     </div>
     <div v-if="showFoodDetail" class="food-detail-wrapper">
       <scroll>
@@ -74,21 +101,23 @@ export default {
   components: {
     FoodPicker,
     ShoppingCart,
-    FoodDetail
+    FoodDetail,
   },
   data() {
     return {
+      stickyElmHeight: 0,
       showFoodDetail: false,
       data: [],
       sectionHeight: [0],
       currentIndex: 0,
-      currentFood: {}
+      currentFood: {},
+      loading: false,
     };
   },
 
   computed: {
     shopGoodsCount() {
-      return this.shopGoods.map(good => {
+      return this.shopGoods.map((good) => {
         return good.foods.reduce((prev, food) => {
           return prev + food.count;
         }, 0);
@@ -96,8 +125,8 @@ export default {
     },
     shoppingCartFoods() {
       const shoppingCartFoods = [];
-      this.shopGoods.forEach(good => {
-        good.foods.forEach(food => {
+      this.shopGoods.forEach((good) => {
+        good.foods.forEach((food) => {
           if (food.count > 0) {
             shoppingCartFoods.push(food);
           }
@@ -120,7 +149,7 @@ export default {
       }
 
       return copyData;
-    }
+    },
   },
   methods: {
     getIconName(type) {
@@ -144,8 +173,8 @@ export default {
       this.showFoodDetail = false;
     },
     clearShoppingCart() {
-      this.data.forEach(good => {
-        good.foods.forEach(food => {
+      this.data.forEach((good) => {
+        good.foods.forEach((food) => {
           food.count = 0;
         });
       });
@@ -157,22 +186,40 @@ export default {
     },
     onFoodScroll({ x, y }) {
       const distanceY = Math.abs(Math.round(y));
+      const elm = this.$refs.stickyTitle;
+     
+      if (y > 0) {
+        elm.style.setProperty("display", "none");
+      } else {
+        elm.style.removeProperty("display");
+      }
       for (let index = 0; index < this.sectionHeight.length; index++) {
         if (
           distanceY >= this.sectionHeight[index] &&
           distanceY < this.sectionHeight[index + 1]
         ) {
           this.currentIndex = index;
+          elm.style.transform = "translateY(0)";
+        } else if (
+          distanceY >= this.sectionHeight[index] - this.stickyElmHeight &&
+          distanceY < this.sectionHeight[index]
+        ) {
+          const translateY =
+            this.sectionHeight[index] - this.stickyElmHeight - distanceY;
+
+          elm.style.transform = `translateY(${translateY}px)`;
         }
       }
-    }
+    },
   },
 
   created() {
+    this.loading = true;
     request
       .get("/goods")
-      .then(response => {
+      .then((response) => {
         this.data = response;
+        this.loading = false;
       })
       .then(() => {
         setTimeout(() => {
@@ -184,13 +231,17 @@ export default {
 
             return sectionHeight;
           }, 0);
+
+          this.stickyElmHeight = this.$refs.stickyTitle.clientHeight;
         });
+      })
+      .catch((err) => {
+        this.loading = false;
       });
-  }
+  },
 };
 </script>
- 
- 
+
 <style lang="less" scoped>
 .wrapper {
   height: 100%;
@@ -227,9 +278,22 @@ export default {
     }
   }
 }
+.foodsScroll-wrapper {
+  overflow: hidden;
+  position: relative;
+}
 .foods {
   flex: 1;
-
+  &-title--sticky {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    line-height: 0.666667rem;
+    background: #eee;
+    border-left: 0.04rem solid #ccc;
+    padding-left: 0.12rem;
+    color: #93999f;
+  }
   &-group {
     &-name {
       line-height: 50px;
