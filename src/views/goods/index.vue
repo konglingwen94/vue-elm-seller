@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper" v-if="!loading">
-    <div class="goods">
+  <div v-loading="loading" class="wrapper">
+    <div class="goods" v-if="true || !loading">
       <scroll ref="menuScroll" class="menu">
         <ul class="menu-list">
           <li
@@ -27,7 +27,7 @@
       <div class="foodsScroll-wrapper">
         <!-- 固定在顶部的食品类型名称 -->
         <div ref="stickyTitle" class="foods-title--sticky">
-          {{ data[currentIndex].name }}
+          {{ data[currentIndex] && data[currentIndex].name }}
         </div>
         <scroll ref="foodsScroll" @scroll="onFoodScroll" class="foods">
           <ul class="foods-list">
@@ -359,6 +359,9 @@ export default {
 }
 
 .shopping-cart-wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   height: 97px;
 }
 

@@ -6,6 +6,7 @@ import App from './App.vue'
 import directive from './helper/directive'
 import Confirm from './components/confirm/main.js'
 import Alert from './components/alert/main.js'
+import Loading from './components/loading/main.js'
 // 引入font
 // import './assets/font.css'
 
@@ -20,9 +21,10 @@ Vue.config.devtools=true
 
 // 注册自定义指令
 Vue.use(directive)
-// 注册confirm 组件
+// 注册API 组件
 Vue.use(Confirm)
 Vue.use(Alert)
+Vue.use(Loading)
 
 Vue.component(Scroll.name,Scroll)
 Vue.component(Icon.name,Icon)
