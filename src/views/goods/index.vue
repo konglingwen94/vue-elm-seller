@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" v-if="!loading">
     <div class="goods">
-      <scroll class="menu">
+      <scroll ref="menuScroll" class="menu">
         <ul class="menu-list">
           <li
             @tap="selectMenu(index)"
@@ -9,6 +9,7 @@
             :class="{ selected: currentIndex === index }"
             v-for="(item, index) in data"
             :key="index"
+            ref="menuItem"
           >
             <icon
               v-if="item.type > 0"
@@ -187,7 +188,7 @@ export default {
     onFoodScroll({ x, y }) {
       const distanceY = Math.abs(Math.round(y));
       const elm = this.$refs.stickyTitle;
-     
+
       if (y > 0) {
         elm.style.setProperty("display", "none");
       } else {
@@ -199,6 +200,12 @@ export default {
           distanceY < this.sectionHeight[index + 1]
         ) {
           this.currentIndex = index;
+          this.$refs.menuScroll.scrollToElement(
+            this.$refs.menuItem[index],
+            300,
+            0,
+            true
+          );
           elm.style.transform = "translateY(0)";
         } else if (
           distanceY >= this.sectionHeight[index] - this.stickyElmHeight &&
