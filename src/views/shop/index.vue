@@ -1,5 +1,5 @@
 <template>
-  <scroll>
+  <scroll v-loading="loading">
     <div class="shop">
       <div class="header">
         <div class="top">
@@ -92,6 +92,7 @@ export default {
   name: "page-shop",
   data() {
     return {
+      loading:false,
       get isLike() {
         try {
           var seller = JSON.parse(window.localStorage.getItem("seller"));

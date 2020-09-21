@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading" class="wrapper">
-    <div class="goods" v-if="true || !loading">
+    <div class="goods" >
       <scroll ref="menuScroll" class="menu">
         <ul class="menu-list">
           <li

@@ -59,26 +59,13 @@ export default {
   data() {
     return { visible: false };
   },
-  //   props: {
-  //     type: String,
-  //     radius: {
-  //       type: Number,
-  //       default: 100,
-  //     },
-  //     strokeWidth: {
-  //       type: Number,
-  //       default: 5,
-  //     },
-  //     strokeColor: {
-  //       type: String,
-  //       default: "#efefef",
-  //     },
-  //   },
+  
 };
 </script>
 
 <style lang="less">
 .loading {
+  background: #fff;
   position: absolute;
   top: 0;
   bottom: 0;

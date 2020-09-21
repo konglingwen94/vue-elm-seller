@@ -1,27 +1,29 @@
 <template>
-  <scroll class="ratings-scroll-container">
+  <scroll v-loading="loading" class="ratings-scroll-container">
     <div class="ratings">
       <div class="ratings-overview">
         <div class="average">
-          <span class="score">{{seller.score}}</span>
+          <span class="score">{{ seller.score }}</span>
           <h2>综合评估</h2>
-          <p class="footnote">高于周边商家{{seller.rankRate}}%</p>
+          <p class="footnote">高于周边商家{{ seller.rankRate }}%</p>
         </div>
 
         <div class="vote">
           <div class="vote-item service">
             <label for>服务态度</label>
-           <star-score :score="seller.serviceScore"></star-score>
-            <span class="label-content score">{{seller.serviceScore}}</span>
+            <star-score :score="seller.serviceScore"></star-score>
+            <span class="label-content score">{{ seller.serviceScore }}</span>
           </div>
           <div class="good vote-item">
             <label for>商品评分</label>
-           <star-score :score="seller.foodScore"></star-score>
-            <span class="label-content score">{{seller.foodScore}}</span>
+            <star-score :score="seller.foodScore"></star-score>
+            <span class="label-content score">{{ seller.foodScore }}</span>
           </div>
           <div class="deliverytime vote-item">
             <label for>配送时间</label>
-            <span class="label-content time">{{seller.deliveryTime}}分钟</span>
+            <span class="label-content time"
+              >{{ seller.deliveryTime }}分钟</span
+            >
           </div>
         </div>
       </div>
@@ -30,46 +32,70 @@
         <div class="ratings-content-filter">
           <ul class="filter-options">
             <li
-              v-for="(option,index) in ratingTypes"
+              v-for="(option, index) in ratingTypes"
               :key="index"
-              :class="[option.flag,{selected:selectedRatingType===option.type}]"
+              :class="[
+                option.flag,
+                { selected: selectedRatingType === option.type },
+              ]"
               @click.stop="selectOption(option.type)"
               class="filter-options-item"
             >
-              <span>{{option.label}}&nbsp;{{option.count}}</span>
+              <span>{{ option.label }}&nbsp;{{ option.count }}</span>
             </li>
           </ul>
           <div class="filter-switch">
-            <i @touchstart.stop="toggleSwitch" :class="{'on':switchStatus}" class="iconfont select"></i>
+            <i
+              @touchstart.stop="toggleSwitch"
+              :class="{ on: switchStatus }"
+              class="iconfont select"
+            ></i>
             <span class="label-text">只看有内容的评价</span>
           </div>
         </div>
 
         <ul class="ratings-content-list">
-          <li v-for="(item,index) in renderList" :key="index" class="ratings-content-list-item">
+          <li
+            v-for="(item, index) in renderList"
+            :key="index"
+            class="ratings-content-list-item"
+          >
             <!-- <div> -->
-            <img class="avatar" width="100%" height="100%" :src="item.avatar" alt />
+            <img
+              class="avatar"
+              width="100%"
+              height="100%"
+              :src="item.avatar"
+              alt
+            />
             <!-- </div> -->
             <div class="information">
               <div class="top">
-                <h3 class="nickname">{{item.username}}</h3>
-                <time>{{new Date(item.rateTime) | dateFormat}}</time>
+                <h3 class="nickname">{{ item.username }}</h3>
+                <time>{{ new Date(item.rateTime) | dateFormat }}</time>
               </div>
               <div class="sub-desc">
                 <span class="score">
                   <star-score :score="item.score" size="small"></star-score>
                 </span>
-                <span class="deliverytime">{{item.deliveryTime}}分钟送达</span>
+                <span class="deliverytime"
+                  >{{ item.deliveryTime }}分钟送达</span
+                >
               </div>
-              <div class="content">{{item.text}}</div>
+              <div class="content">{{ item.text }}</div>
               <div class="recommendation">
-                <i class="iconfont" :class="item.rateType===0 ? 'thumb-up':'thumb-down'"></i>
+                <i
+                  class="iconfont"
+                  :class="item.rateType === 0 ? 'thumb-up' : 'thumb-down'"
+                ></i>
 
                 <li
                   class="recommendation-item"
-                  v-for="(recommend,key) in item.recommend"
+                  v-for="(recommend, key) in item.recommend"
                   :key="key"
-                >{{recommend}}</li>
+                >
+                  {{ recommend }}
+                </li>
               </div>
             </div>
           </li>
@@ -85,6 +111,7 @@ export default {
   name: "page-ratings",
   data() {
     return {
+      loading: false,
       switchStatus: false,
       selectedRatingType: -1,
       ratings: [],
@@ -92,24 +119,24 @@ export default {
         {
           type: -1,
           flag: "all",
-          label: "全部"
+          label: "全部",
         },
         {
           type: 0,
           flag: "positive",
-          label: "满意"
+          label: "满意",
         },
         {
           type: 1,
           flag: "negative",
 
-          label: "不满意"
-        }
-      ]
+          label: "不满意",
+        },
+      ],
     };
   },
-  props:{
-    seller:Object
+  props: {
+    seller: Object,
   },
   computed: {
     renderList() {
@@ -119,12 +146,14 @@ export default {
         renderList = this.ratings;
       } else {
         renderList = this.ratings.filter(
-          item => item.rateType === this.selectedRatingType
+          (item) => item.rateType === this.selectedRatingType
         );
       }
 
-      return renderList.filter(item => (this.switchStatus ? item.text : true));
-    }
+      return renderList.filter((item) =>
+        this.switchStatus ? item.text : true
+      );
+    },
   },
   filters: {
     dateFormat(date) {
@@ -139,25 +168,30 @@ export default {
       const minute = date.getMinutes();
 
       return `${year}-${month}-${day} ${hours}:${minute}`;
-    }
+    },
   },
   created() {
+    this.loading = true;
     request
       .get("/ratings")
-      .then(response => {
+      .then((response) => {
+        this.loading = false;
+
         this.ratings = response;
 
-        this.ratingTypes.forEach(item => {
+        this.ratingTypes.forEach((item) => {
           if (item.type === -1) {
             item.count = this.ratings.length;
           } else {
             item.count = this.ratings.filter(
-              rating => rating.rateType === item.type
+              (rating) => rating.rateType === item.type
             ).length;
           }
         });
       })
-      .catch();
+      .catch(() => {
+        this.loading = false;
+      });
   },
   methods: {
     selectOption(option) {
@@ -165,8 +199,8 @@ export default {
     },
     toggleSwitch() {
       this.switchStatus = !this.switchStatus;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="less">
