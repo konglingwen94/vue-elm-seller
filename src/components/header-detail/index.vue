@@ -1,25 +1,25 @@
 <template>
   <div class="header-detail" @click.stop>
     <div class="header">
-      <h2>{{seller.name}}</h2>
+      <h2>{{ seller.name }}</h2>
       <div class>
-          <star-score size="middle" :score="seller.score"></star-score>
+        <star-score size="middle" :score="seller.score"></star-score>
       </div>
     </div>
     <div class="supports">
       <h3 class="title-divider">优惠信息</h3>
       <div class="supports-content">
         <ul>
-          <li v-for="(item ,index) in seller.supports" :key="index" class="supports-content-item">
-            <icon :name="iconName(item.type)"></icon>
-            <span class="text">{{item.description}}</span>
+          <li v-for="(item, index) in seller.supports" :key="index" class="supports-content-item">
+            <icon height="24" width="24"  :name="iconName(item.type)"></icon>
+            <span class="text">{{ item.description }}</span>
           </li>
         </ul>
       </div>
     </div>
     <div class="bulletin">
       <h3 class="title-divider">商家公告</h3>
-      <div class="bulletin-content">{{seller.bulletin}}</div>
+      <div class="bulletin-content">{{ seller.bulletin }}</div>
     </div>
 
     <div class="close-wrapper">
@@ -31,7 +31,7 @@
 export default {
   name: "header-detail",
   props: {
-    seller: Object
+    seller: Object,
   },
   methods: {
     iconName(type) {
@@ -47,8 +47,8 @@ export default {
         case 4:
           return "guarantee";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -58,7 +58,7 @@ export default {
     margin-top: 50px;
     margin-bottom: 50px;
     text-align: center;
-    h2{
+    h2 {
       margin-bottom: 50px;
     }
   }
@@ -91,7 +91,9 @@ export default {
         line-height: 2em;
         .text {
           margin-left: 7px;
+          vertical-align: 2px;
         }
+        
       }
     }
   }

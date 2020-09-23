@@ -65,6 +65,7 @@ export default {
 .header {
   background-color: rgba(7, 17, 27, 0.5);
   color: #fff;
+  height: 257px;
 }
 .description {
   padding: 48px 24px 0 49px;

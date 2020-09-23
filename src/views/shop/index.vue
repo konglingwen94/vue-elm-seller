@@ -9,17 +9,11 @@
               <div class="score">
                 <star-score :score="seller.score"></star-score>
               </div>
-              <div class="order">
-                ({{ seller.ratingCount }}) 月售{{ seller.sellCount }}单
-              </div>
+              <div class="order">({{ seller.ratingCount }}) 月售{{ seller.sellCount }}单</div>
             </div>
           </div>
           <div class="favorite-wrapper">
-            <i
-              @click="toggle"
-              :class="{ 'is-like': isLike }"
-              class="iconfont favorite"
-            ></i>
+            <i @click="toggle" :class="{ 'is-like': isLike }" class="iconfont favorite"></i>
             <div class>{{ isLike ? "已收藏" : "收藏" }}</div>
           </div>
         </div>
@@ -47,11 +41,7 @@
         <h2>公告</h2>
         <p class="description">{{ seller.bulletin }}</p>
         <ul class="support">
-          <li
-            v-for="(item, index) in seller.supports"
-            :key="index"
-            class="decrease support-item"
-          >
+          <li v-for="(item, index) in seller.supports" :key="index" class="decrease support-item">
             <icon width="32" height="32" :name="iconName(item.type)" />
             <span class="support-item-text">{{ item.description }}</span>
           </li>
@@ -61,11 +51,7 @@
         <h2>商家实景</h2>
         <scroll direction="horizontal">
           <ul class="content">
-            <li
-              class="content-item"
-              v-for="(pic, index) in seller.pics"
-              :key="index"
-            >
+            <li class="content-item" v-for="(pic, index) in seller.pics" :key="index">
               <img :src="pic" alt />
             </li>
           </ul>
@@ -74,11 +60,7 @@
       <div class="information">
         <h2>商家信息</h2>
         <ul>
-          <li
-            class="information-item"
-            v-for="(info, index) in seller.infos"
-            :key="index"
-          >
+          <li class="information-item" v-for="(info, index) in seller.infos" :key="index">
             {{ info }}
           </li>
         </ul>
@@ -92,7 +74,7 @@ export default {
   name: "page-shop",
   data() {
     return {
-      loading:false,
+      loading: false,
       get isLike() {
         try {
           var seller = JSON.parse(window.localStorage.getItem("seller"));
@@ -144,6 +126,9 @@ export default {
     margin-bottom: 30px;
     border: 1px solid rgba(7, 17, 27, 0.2);
     border-width: 1px 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
     h2 {
       margin-bottom: 22px;
       font-size: 28px;
@@ -158,7 +143,7 @@ export default {
     display: flex;
     width: 100%;
     height: 50%;
-    justify-content: space-between;
+
     .summary {
       width: 70%;
       .title {
@@ -166,8 +151,9 @@ export default {
       }
       .kpi {
         display: flex;
+        align-items: center;
         .score {
-          margin-right: 100px;
+          margin-right: 30px;
         }
       }
     }
@@ -176,6 +162,8 @@ export default {
       margin-right: 10px;
       margin-top: 4px;
       text-align: center;
+      width: 80px;
+      margin-left: auto;
       .iconfont {
         display: inline-block;
         width: 45px;
@@ -192,7 +180,6 @@ export default {
   }
   hr {
     margin: 30px 0;
-    // width:85%;
   }
   .delivery {
     display: flex;
@@ -226,8 +213,9 @@ export default {
     .support-item {
       &-text {
         margin-left: 4px;
-        vertical-align: super;
       }
+      display: flex;
+      align-items: center;
       padding-left: 4px;
       padding-top: 34px;
       padding-bottom: 34px;
@@ -241,8 +229,7 @@ export default {
 
 .scene {
   padding: 20px;
-  // h1 {
-  // }
+
   .content {
     display: flex;
     &-item {

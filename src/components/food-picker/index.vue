@@ -1,9 +1,9 @@
 <template>
   <div class="food-picker" @click.stop>
-    <div class="reduce-wrapper" @click="reduce">
+    <div v-show="foodInfo.count" class="reduce-wrapper" @click="reduce">
       <i class="iconfont reduce"></i>
     </div>
-    <div class="counter">{{foodInfo.count}}</div>
+    <div class="counter" v-show="foodInfo.count">{{foodInfo.count}}</div>
     <div class="add-wrapper" @click="add">
       <i class="iconfont add"></i>
     </div>
@@ -32,19 +32,18 @@ export default {
 </script>
 <style lang="less" scoped>
 .food-picker {
-  min-width: 180px;
   max-width: 200px;
 
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: space-between;
+
   .iconfont {
     color: #00a0dc;
     font-size: 38px;
   }
   .counter {
-    // margin: 0 20px;
+    margin: 0 30px;
   }
 }
 </style>

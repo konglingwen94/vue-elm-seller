@@ -21,22 +21,22 @@ import Header from "./components/header/index.vue";
 const mapDynamicComponent = {
   1: "goods",
   2: "ratings",
-  3: "shop"
+  3: "shop",
 };
 
 const tabData = [
   {
     label: "商品",
-    id: 1
+    id: 1,
   },
   {
     label: "评论",
-    id: 2
+    id: 2,
   },
   {
     label: "商家",
-    id: 3
-  }
+    id: 3,
+  },
 ];
 export default {
   name: "App",
@@ -44,13 +44,13 @@ export default {
     return {
       tabData,
       activePanel: "goods",
-      seller: {}
+      seller: {},
     };
   },
-    created() {
+  created() {
     request
       .get("/seller")
-      .then(response => {
+      .then((response) => {
         this.seller = response;
       })
       .catch();
@@ -58,7 +58,7 @@ export default {
   methods: {
     handleTabChange(id) {
       this.activePanel = mapDynamicComponent[id];
-    }
+    },
   },
 
   components: {
@@ -66,14 +66,20 @@ export default {
     Shop,
     Ratings,
     Header,
-    TabBar
-  }
+    TabBar,
+  },
 };
 </script>
 
 <style>
+ 
+body,
+html {
+  overflow: hidden;
+}
+
 .tab-panel-container {
-  height: calc(100vh - 257px - 90px);
+  height: calc(100vh - 257px - 93px);
   color: #07111b;
 }
 </style>

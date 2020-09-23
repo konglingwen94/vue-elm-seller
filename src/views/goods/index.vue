@@ -348,7 +348,6 @@ export default {
         }
 
         .picker-wrapper {
-          width: 130px;
           position: absolute;
           right: 30px;
           bottom: -9px;
