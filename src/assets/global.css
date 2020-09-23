@@ -1,0 +1,23 @@
+@keyframes horizontalScrolling {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.directive-nowrap {
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+.directive-nowrap--ellipsis {
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+}
+
+.directive-nowrap--playback {
+  animation-name: horizontalScrolling !important;
+  animation-iteration-count: infinite !important;
+  animation-timing-function: linear !important;
+}

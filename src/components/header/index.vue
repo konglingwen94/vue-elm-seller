@@ -1,5 +1,5 @@
 <template>
-  <div class="header" @click.stop="showDetail=true">
+  <div class="header" @click.stop="showDetail = true">
     <div class="description">
       <div class="left-cover">
         <img :src="seller.avatar" width="100%" height="100%" alt />
@@ -7,16 +7,16 @@
       <div class="right-intro">
         <div class="top">
           <icon src="./brand" name="brand" width="60" height="35" />
-          <span class="name">{{seller.name}}</span>
+          <span class="name">{{ seller.name }}</span>
         </div>
-        <div class="middle">{{seller.description}} / {{seller.deliveryTime}}分钟送达</div>
+        <div class="middle">{{ seller.description }} / {{ seller.deliveryTime }}分钟送达</div>
         <div class="bottom">
           <div class="icon">
             <icon name="decrease" width="30" height="20"></icon>
-            <span>{{seller.supports && seller.supports[0].description}}</span>
+            <span>{{ seller.supports && seller.supports[0].description }}</span>
           </div>
           <div class="button">
-            {{seller.supports && seller.supports.length}}
+            {{ seller.supports && seller.supports.length }}
             <span class="arrow"></span>
           </div>
         </div>
@@ -24,9 +24,11 @@
     </div>
     <div class="footer">
       <div class="footer-content">
-        <icon name="bulletin" width="30" height="20" />
-        <span v-ellipsis>{{seller.bulletin}}</span>
-        <i class="arrow"></i>
+        <span v-nowrap.playback>
+          <icon name="bulletin" width="30" height="20" />
+          {{ seller.bulletin }}</span
+        >
+        <!-- <i class="arrow"></i> -->
       </div>
     </div>
 
@@ -41,22 +43,21 @@ import HeaderDetail from "@/components/header-detail";
 export default {
   name: "shop-header",
   props: {
-    seller: Object
+    seller: Object,
   },
   data() {
     return {
-      showDetail: false
+      showDetail: false,
     };
   },
   components: {
-    HeaderDetail
+    HeaderDetail,
   },
   methods: {
     close() {
-      console.log("close");
       this.showDetail = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
