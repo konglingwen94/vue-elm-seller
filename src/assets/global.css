@@ -1,23 +1,37 @@
 @keyframes horizontalScrolling {
-  from {
-    transform: translateX(100vw);
-  }
   to {
-    transform: translateX(-100%);
+    transform: translateX(calc(-100% - 100vw));
+  }
+}
+@keyframes doubleHorizontalScrolling {
+  to {
+    transform: translateX(-200%);
   }
 }
 
 .directive-nowrap {
   display: inline-block !important;
   white-space: nowrap !important;
+  position: absolute;
+  left: 100%;
 }
 .directive-nowrap--ellipsis {
   text-overflow: ellipsis !important;
   overflow: hidden !important;
+  width: 100%;
+  left: 0;
 }
 
 .directive-nowrap--playback {
   animation-name: horizontalScrolling !important;
+  animation-iteration-count: infinite !important;
+  animation-timing-function: linear !important;
+}
+.directive-nowrap--parent {
+  position: relative;
+}
+.directive-nowrap__seamless--playback {
+  animation-name: doubleHorizontalScrolling !important;
   animation-iteration-count: infinite !important;
   animation-timing-function: linear !important;
 }

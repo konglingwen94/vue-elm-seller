@@ -24,10 +24,10 @@
     </div>
     <div class="footer">
       <div class="footer-content">
-        <span v-nowrap.playback>
+        <span v-if="seller.bulletin" v-nowrap.playback.seamless>
           <icon name="bulletin" width="30" height="20" />
-          {{ seller.bulletin }}</span
-        >
+          {{ seller.bulletin }}
+        </span>
         <!-- <i class="arrow"></i> -->
       </div>
     </div>
@@ -43,21 +43,21 @@ import HeaderDetail from "@/components/header-detail";
 export default {
   name: "shop-header",
   props: {
-    seller: Object,
+    seller: Object
   },
   data() {
     return {
-      showDetail: false,
+      showDetail: false
     };
   },
   components: {
-    HeaderDetail,
+    HeaderDetail
   },
   methods: {
     close() {
       this.showDetail = false;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -125,8 +125,8 @@ export default {
 
 .footer {
   background: rgba(7, 17, 27, 0.2);
-  padding: 10px;
-
+  padding: 20px 0;
+  // height: 40px;
   &-content {
     display: flex;
     align-items: center;
