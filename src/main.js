@@ -7,12 +7,23 @@ import directive from "./helper/directive";
 import Confirm from "./components/confirm/main.js";
 import Alert from "./components/alert/main.js";
 import Loading from "./components/loading/main.js";
+
+// 引入vconsole
+ 
+if (process.env.NODE_ENV !== "production") {
+  import("vconsole").then(({ default: vConsole }) => {
+    new vConsole();
+  });
+}
+
+ 
 // 引入全局样式
 import "./assets/global.css";
 
 import "lib-flexible";
 import "normalize.css";
 import "./assets/reset.css";
+import VConsole from "vconsole";
 
 Vue.config.devtools = true;
 

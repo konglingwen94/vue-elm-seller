@@ -11,7 +11,7 @@
       <div class="supports-content">
         <ul>
           <li v-for="(item, index) in seller.supports" :key="index" class="supports-content-item">
-            <icon height="24" width="24"  :name="iconName(item.type)"></icon>
+            <icon height="24" width="24" :name="iconName(item.type)"></icon>
             <span class="text">{{ item.description }}</span>
           </li>
         </ul>
@@ -52,8 +52,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+ 
 .header-detail {
-  padding: 70px;
+  padding: 30px 70px;
   .header {
     margin-top: 50px;
     margin-bottom: 50px;
@@ -88,12 +89,11 @@ export default {
     &-content {
       &-item {
         margin-bottom: 19px;
-        line-height: 2em;
+        line-height: 1.2em;
         .text {
           margin-left: 7px;
           vertical-align: 2px;
         }
-        
       }
     }
   }

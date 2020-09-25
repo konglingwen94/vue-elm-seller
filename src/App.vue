@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div @touchmove.prevent id="app" :class="assertDevice()">
     <Header :seller="seller"></Header>
 
     <div class="tab-bar-container">
@@ -55,9 +55,16 @@ export default {
       })
       .catch();
   },
+   
   methods: {
     handleTabChange(id) {
       this.activePanel = mapDynamicComponent[id];
+    },
+    assertDevice() {
+      if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
+        return { isSafari: true };
+      }
+      return { isSafari: true };
     },
   },
 
@@ -72,14 +79,21 @@ export default {
 </script>
 
 <style>
- 
 body,
-html {
+html,
+#app {
   overflow: hidden;
+  height: 100vh;
 }
 
+.isSafari#app {
+  height: calc(100vh - 150px);
+}
 .tab-panel-container {
   height: calc(100vh - 257px - 93px);
   color: #07111b;
+}
+.isSafari .tab-panel-container {
+  height: calc(100vh - 257px - 93px - 150px);
 }
 </style>
