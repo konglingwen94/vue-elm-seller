@@ -22,7 +22,13 @@
         <div ref="stickyTitle" class="foods-title--sticky">
           {{ data[currentIndex] && data[currentIndex].name }}
         </div>
-        <scroll ref="foodsScroll" @scroll="onFoodScroll" class="foods">
+        <scroll
+          ref="foodsScroll"
+          @scroll-start="userScrolling = true"
+          @scroll-end="userScrolling = false"
+          @scroll="onFoodScroll"
+          class="foods"
+        >
           <ul class="foods-list">
             <li ref="foodsGroup" class="foods-group" v-for="(item, index) in data" :key="index">
               <dl class="foods-group-wrapper">
@@ -94,6 +100,7 @@ export default {
       currentIndex: 0,
       currentFood: {},
       loading: false,
+      userScrolling: false,
     };
   },
 
@@ -163,10 +170,14 @@ export default {
     },
     selectMenu(index) {
       const target = this.$refs.foodsGroup[index];
+      this.$refs.menuScroll.scrollToElement(this.$refs.menuItem[index], 300, 0, true);
       this.$refs.foodsScroll.scrollToElement(target, 300);
       this.currentIndex = index;
     },
     onFoodScroll({ x, y }) {
+      if (!this.userScrolling) {
+        return;
+      }
       const distanceY = Math.abs(Math.round(y));
       const elm = this.$refs.stickyTitle;
 

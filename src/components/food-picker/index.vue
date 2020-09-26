@@ -36,7 +36,7 @@ export default {
 
   display: flex;
   align-items: center;
-  width: 100%;
+  // width: 100%;
   .add-wrapper,
   .reduce-wrapper {
     padding: 3px;

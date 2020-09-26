@@ -17,8 +17,11 @@
         <div class="buy">
           <span class="price">￥{{ data.price }}</span>
           <del v-if="data.oldPrice" class="oldprice">￥{{ data.oldPrice }}</del>
-          <span v-if="data.count === 0" class="action-button" @click="addToCart">加入购物车</span>
-          <food-picker v-else :food-info="data"></food-picker>
+
+          <transition name="actionButtonToggle" mode="out-in">
+            <span v-if="data.count === 0" class="action-button" @click="addToCart">加入购物车</span>
+            <food-picker v-else :food-info="data" class="action-foodPicker"></food-picker>
+          </transition>
         </div>
       </div>
     </div>
@@ -53,6 +56,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.actionButtonToggle-enter-active,
+.actionButtonToggle-leave-active {
+  transition: all 0.5s;
+}
+.actionButtonToggle-enter,
+.actionButtonToggle-leave {
+  opacity: 0;
+}
+
 .food-detail {
   background: #efefef;
 }

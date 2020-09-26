@@ -13,22 +13,22 @@ export default {
   props: {
     direction: {
       type: String,
-      default: "vertical"
+      default: "vertical",
     },
     probeType: {
       type: Number,
-      default: 3
-    }
+      default: 3,
+    },
   },
   provide() {
     return {
-      parentScroll: this
+      parentScroll: this,
     };
   },
   inject: {
     parentScroll: {
-      default: null
-    }
+      default: null,
+    },
   },
   mounted() {
     this._initScroll();
@@ -43,21 +43,24 @@ export default {
           scrollX: this.direction === "horizontal",
           probeType: this.probeType,
           tap: "tap",
-          click: true
-           
+          click: true,
         });
 
-         
-        this.scroll.on("scroll", pos => {
-           
+        this.scroll.on("scroll", (pos) => {
           this.$emit("scroll", pos);
+        });
+        this.scroll.on("scrollStart", (...arg) => {
+          this.$emit("scroll-start", ...arg);
+        });
+        this.scroll.on("scrollEnd", (...arg) => {
+          this.$emit("scroll-end", ...arg);
         });
       }, 440);
     },
     scrollToElement(...arg) {
       this.scroll.scrollToElement(...arg);
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>

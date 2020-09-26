@@ -34,15 +34,15 @@ export default {
 
 @keyframes scale {
    
-  50% {
+  70% {
     transform: scale(1.3);
   }
  
 }
 .animation-enter {
-  animation: fadeIn .4s;
+  animation: fadeIn .3s;
   .alert-content {
-    animation: scale 0.4s linear;
+    animation: scale 0.3s linear;
   }
 }
 
