@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading" class="wrapper">
-    <div class="goods" >
+    <div class="goods">
       <scroll ref="menuScroll" class="menu">
         <ul class="menu-list">
           <li
@@ -11,16 +11,9 @@
             :key="index"
             ref="menuItem"
           >
-            <icon
-              v-if="item.type > 0"
-              :name="getIconName(item.type)"
-              width="24"
-              height="24"
-            />
+            <icon v-if="item.type > 0" :name="getIconName(item.type)" width="24" height="24" />
             <span>{{ item.name }}</span>
-            <span v-if="shopGoodsCount[index] > 0" class="shop_goods_count">{{
-              shopGoodsCount[index]
-            }}</span>
+            <span v-if="shopGoodsCount[index] > 0" class="shop_goods_count">{{ shopGoodsCount[index] }}</span>
           </li>
         </ul>
       </scroll>
@@ -31,12 +24,7 @@
         </div>
         <scroll ref="foodsScroll" @scroll="onFoodScroll" class="foods">
           <ul class="foods-list">
-            <li
-              ref="foodsGroup"
-              class="foods-group"
-              v-for="(item, index) in data"
-              :key="index"
-            >
+            <li ref="foodsGroup" class="foods-group" v-for="(item, index) in data" :key="index">
               <dl class="foods-group-wrapper">
                 <dt class="foods-group-name">
                   {{ item.name }}
@@ -61,15 +49,11 @@
                     <div class="price-wrapper">
                       ￥
                       <span class="price">{{ food.price }}</span>
-                      <del v-if="food.oldprice" class="oldprice"
-                        >￥{{ food.oldProce }}</del
-                      >
+                      <del v-if="food.oldprice" class="oldprice">￥{{ food.oldProce }}</del>
                     </div>
 
                     <div class="picker-wrapper">
-                      <food-picker
-                        :food-info="shopGoods[index].foods[key]"
-                      ></food-picker>
+                      <food-picker :food-info="shopGoods[index].foods[key]"></food-picker>
                     </div>
                   </div>
                 </dd>
@@ -80,10 +64,7 @@
       </div>
     </div>
     <div class="shopping-cart-wrapper">
-      <shopping-cart
-        @clear="clearShoppingCart"
-        :selected-foods="shoppingCartFoods"
-      ></shopping-cart>
+      <shopping-cart @clear="clearShoppingCart" :selected-foods="shoppingCartFoods"></shopping-cart>
     </div>
     <div v-if="showFoodDetail" class="food-detail-wrapper">
       <scroll>
@@ -195,24 +176,15 @@ export default {
         elm.style.removeProperty("display");
       }
       for (let index = 0; index < this.sectionHeight.length; index++) {
-        if (
-          distanceY >= this.sectionHeight[index] &&
-          distanceY < this.sectionHeight[index + 1]
-        ) {
+        if (distanceY >= this.sectionHeight[index] && distanceY < this.sectionHeight[index + 1]) {
           this.currentIndex = index;
-          this.$refs.menuScroll.scrollToElement(
-            this.$refs.menuItem[index],
-            300,
-            0,
-            true
-          );
+          this.$refs.menuScroll.scrollToElement(this.$refs.menuItem[index], 300, 0, true);
           elm.style.transform = "translateY(0)";
         } else if (
           distanceY >= this.sectionHeight[index] - this.stickyElmHeight &&
           distanceY < this.sectionHeight[index]
         ) {
-          const translateY =
-            this.sectionHeight[index] - this.stickyElmHeight - distanceY;
+          const translateY = this.sectionHeight[index] - this.stickyElmHeight - distanceY;
 
           elm.style.transform = `translateY(${translateY}px)`;
         }
@@ -359,6 +331,7 @@ export default {
 
 .shopping-cart-wrapper {
   position: fixed;
+  z-index: 1299;
   bottom: 0;
   width: 100%;
   height: 97px;

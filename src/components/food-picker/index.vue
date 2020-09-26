@@ -3,7 +3,7 @@
     <div v-show="foodInfo.count" class="reduce-wrapper" @click="reduce">
       <i class="iconfont reduce"></i>
     </div>
-    <div class="counter" v-show="foodInfo.count">{{foodInfo.count}}</div>
+    <div class="counter" v-show="foodInfo.count">{{ foodInfo.count }}</div>
     <div class="add-wrapper" @click="add">
       <i class="iconfont add"></i>
     </div>
@@ -15,8 +15,8 @@ export default {
   props: {
     foodInfo: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   methods: {
     reduce() {
@@ -26,24 +26,27 @@ export default {
     },
     add() {
       this.foodInfo.count++;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
 .food-picker {
-  max-width: 200px;
+  max-width: 300px;
 
   display: flex;
   align-items: center;
   width: 100%;
-
+  .add-wrapper,
+  .reduce-wrapper {
+    padding: 3px;
+  }
   .iconfont {
     color: #00a0dc;
     font-size: 38px;
   }
   .counter {
-    margin: 0 30px;
+    margin: 0 50px;
   }
 }
 </style>

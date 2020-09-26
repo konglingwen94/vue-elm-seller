@@ -12,7 +12,7 @@ import Loading from "./components/loading/main.js";
  
 if (process.env.NODE_ENV !== "production") {
   import("vconsole").then(({ default: vConsole }) => {
-    new vConsole();
+    // new vConsole();
   });
 }
 
@@ -23,7 +23,7 @@ import "./assets/global.css";
 import "lib-flexible";
 import "normalize.css";
 import "./assets/reset.css";
-import VConsole from "vconsole";
+ 
 
 Vue.config.devtools = true;
 

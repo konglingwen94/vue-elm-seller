@@ -52,7 +52,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
- 
 .header-detail {
   padding: 30px 70px;
   .header {
@@ -105,14 +104,14 @@ export default {
     }
   }
   .close-wrapper {
-    margin-top: 70px;
+    position: fixed;
+    bottom: 60px;
+    width: 100vw;
+    left: 0;
     text-align: center;
     span {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
       color: #fff;
-      font-size: 50px;
+      font-size: 70px;
     }
   }
 }

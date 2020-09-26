@@ -10,6 +10,8 @@ const createAlert = (title, content, buttonText) => {
       el: document.createElement("div"),
     }));
 
+instance.$el.classList.add('animation-enter')
+
   if (title) {
     instance.title = title;
   }
@@ -22,10 +24,11 @@ const createAlert = (title, content, buttonText) => {
   }
   document.body.appendChild(instance.$el);
   return new Promise((resolve, reject) => {
-    instance.submit = () => {
+    instance.$on("submit", () => {
       resolve();
-      document.body.removeChild(instance.$el);
-    };
+      instance.$el.remove();
+       
+    });
   });
 };
 

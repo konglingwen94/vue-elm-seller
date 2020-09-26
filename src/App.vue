@@ -64,7 +64,7 @@ export default {
       if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
         return { isSafari: true };
       }
-      return { isSafari: true };
+      
     },
   },
 

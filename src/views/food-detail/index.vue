@@ -1,32 +1,34 @@
 <template>
   <div class="food-detail">
     <div class="header">
-      <i class="backward-arrow" @click="$emit('backward')"></i>
+      <div @click="$emit('backward')" class="backward">
+        <i class="backward-arrow"></i>
+      </div>
       <div class="cover">
         <img width="100%" height="100%" :src="data.image" alt />
       </div>
 
       <div class="content">
-        <h2 class="title">{{data.name}}</h2>
+        <h2 class="title">{{ data.name }}</h2>
         <div class="desc">
-          <span class="sell-count">月售{{data.sellCount}}份</span>
-          <span class="rate">好评率{{data.rating}}%</span>
+          <span class="sell-count">月售{{ data.sellCount }}份</span>
+          <span class="rate">好评率{{ data.rating }}%</span>
         </div>
         <div class="buy">
-          <span class="price">￥{{data.price}}</span>
-          <del v-if="data.oldPrice" class="oldprice">￥{{data.oldPrice}}</del>
-          <span v-if="data.count===0" class="action-button" @click="addToCart">加入购物车</span>
+          <span class="price">￥{{ data.price }}</span>
+          <del v-if="data.oldPrice" class="oldprice">￥{{ data.oldPrice }}</del>
+          <span v-if="data.count === 0" class="action-button" @click="addToCart">加入购物车</span>
           <food-picker v-else :food-info="data"></food-picker>
         </div>
       </div>
     </div>
     <div v-if="data.info" class="info">
       <h2>商品简介</h2>
-      <span class="text">{{data.info}}</span>
+      <span class="text">{{ data.info }}</span>
     </div>
     <div class="ratings-wrapper">
       <h3>商品评价</h3>
-      <rating :rate-type-labels="['全部','推荐','吐槽']" :data="data.ratings"></rating>
+      <rating :rate-type-labels="['全部', '推荐', '吐槽']" :data="data.ratings"></rating>
     </div>
   </div>
 </template>
@@ -36,17 +38,17 @@ import Rating from "@/components/rating";
 export default {
   components: {
     FoodPicker,
-    Rating
+    Rating,
   },
   name: "food-detail",
   props: {
-    data: Object
+    data: Object,
   },
   methods: {
     addToCart() {
       this.data.count++;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -58,14 +60,20 @@ export default {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
   background: #fff;
+  .backward {
+    position: relative;
+    left: 20px;
+    top: 20px;
+    z-index: 100;
+  }
   .backward-arrow {
     position: absolute;
     left: 15px;
     top: 15px;
-    width: 18px;
-    height: 18px;
-    border: 1px solid #fff;
-    border-width: 1px 1px 0 0;
+    width: 28px;
+    height: 28px;
+    border: 2px solid #fff;
+    border-width: 2px 2px 0 0;
     transform: rotate(-135deg);
   }
 
@@ -76,7 +84,7 @@ export default {
 
   .content {
     padding: 20px 30px;
-     
+
     .desc {
       font-size: 20px;
       color: #ccc;
@@ -118,9 +126,9 @@ export default {
   background: #fff;
 }
 .ratings-wrapper {
-    h3{
-        padding:20px;
-    }
+  h3 {
+    padding: 20px;
+  }
   margin-top: 30px;
   border-top: 1px solid #ccc;
   background: #fff;

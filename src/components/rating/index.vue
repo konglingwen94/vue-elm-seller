@@ -29,10 +29,7 @@
             <h3 class="nickname">{{item.username}}</h3>
             <time>{{new Date(item.rateTime) | dateFormat}}</time>
           </div>
-          <!-- <div class="sub-desc">
-            <span class="score">******</span>
-            <span class="deliverytime">90分钟送达</span>
-          </div>-->
+          
           <div class="content">{{item.text}}</div>
           <div class="recommendation">
             <i class="iconfont" :class="item.rateType===0 ? 'thumb-up':'thumb-down'"></i>
@@ -174,11 +171,11 @@ export default {
   }
   .rate-switch {
     padding: 30px 0;
-    .switch {
+    .select {
       cursor: pointer;
-      vertical-align: -7px;
-      margin-right: 4px;
-      font-size: 30px;
+      vertical-align: -5px;
+      margin-right: 9px;
+      font-size: 40px;
       &.on {
         color: green;
       }
