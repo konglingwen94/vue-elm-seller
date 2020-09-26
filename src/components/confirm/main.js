@@ -11,33 +11,28 @@ const defaultOpts = {
 const createConfirm = (title, options) => {
   const mergedOptions = Object.assign({}, defaultOpts, options);
 
-  let confirmCallback, cancelCallback;
   const instance = new ConfirmCtor({
-    el: document.createElement("div"),
+    el: document.body.appendChild(document.createElement("div")),
     data: {
       title,
       ...mergedOptions,
     },
-    methods: {
-      submit() {
-        confirmCallback.call(this);
-      },
-      cancel() {
-        cancelCallback.call(this);
-      },
-    },
   });
-  document.body.appendChild(instance.$el);
+   
+  instance.visible = true;
+  
   return new Promise((resolve, reject) => {
-    confirmCallback = function() {
-      resolve('confirm');
-      this.destroy();
-    };
+    instance
+      .$on("confirm", () => {
+        resolve("confirm");
 
-    cancelCallback = function() {
-      reject('cancel');
-      this.destroy();
-    };
+        instance.destroy();
+      })
+      .$on("cancel", function() {
+        reject("cancel");
+
+        instance.destroy();
+      });
   });
 };
 
