@@ -1,9 +1,13 @@
 <template>
   <div class="food-picker" @click.stop>
-    <div v-show="foodInfo.count" class="reduce-wrapper" @click="reduce">
-      <i class="iconfont reduce"></i>
-    </div>
-    <div class="counter" v-show="foodInfo.count">{{ foodInfo.count }}</div>
+    <transition name="roll">
+      <div v-show="foodInfo.count" class="reduce-wrapper" @click="reduce">
+        <i class="iconfont reduce"></i>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div class="counter" v-show="foodInfo.count">{{ foodInfo.count }}</div>
+    </transition>
     <div class="add-wrapper" @click="add">
       <i class="iconfont add"></i>
     </div>
@@ -31,22 +35,47 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@duration: 1s;
+.roll-enter-active,
+.roll-leave-active {
+  transition: transform @duration;
+}
+.roll-enter,
+.roll-leave-to {
+  transform: translateX(300%) rotate(calc(360deg * 1));
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity @duration;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .food-picker {
   max-width: 300px;
 
   display: flex;
   align-items: center;
-  // width: 100%;
   .add-wrapper,
   .reduce-wrapper {
-    padding: 3px;
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
   }
   .iconfont {
     color: #00a0dc;
     font-size: 38px;
   }
   .counter {
-    margin: 0 50px;
+    width: 80px;
+    text-align: center;
+     
   }
 }
 </style>

@@ -72,11 +72,13 @@
     <div class="shopping-cart-wrapper">
       <shopping-cart @clear="clearShoppingCart" :selected-foods="shoppingCartFoods"></shopping-cart>
     </div>
-    <div v-if="showFoodDetail" class="food-detail-wrapper">
-      <scroll>
-        <food-detail @backward="backward" :data="currentFood"></food-detail>
-      </scroll>
-    </div>
+    <transition name="forward-slide">
+      <div v-if="showFoodDetail" class="food-detail-wrapper">
+        <scroll>
+          <food-detail @backward="backward" :data="currentFood"></food-detail>
+        </scroll>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -233,6 +235,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.forward-slide-enter-active,
+.forward-slide-leave-active {
+  transition: transform 0.3s;
+}
+.forward-slide-enter,
+.forward-slide-leave-to {
+  transform: translateX(100%);
+}
+
 .wrapper {
   height: 100%;
 }

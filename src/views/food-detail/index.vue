@@ -17,10 +17,11 @@
         <div class="buy">
           <span class="price">￥{{ data.price }}</span>
           <del v-if="data.oldPrice" class="oldprice">￥{{ data.oldPrice }}</del>
-
-          <transition name="actionButtonToggle" mode="out-in">
-            <span v-if="data.count === 0" class="action-button" @click="addToCart">加入购物车</span>
-            <food-picker v-else :food-info="data" class="action-foodPicker"></food-picker>
+          <transition name="fade">
+            <span v-show="data.count === 0" class="action-button" @click="addToCart">加入购物车</span>
+          </transition>
+          <transition name="fade">
+            <food-picker v-show="data.count > 0" :food-info="data" class="action-foodPicker"></food-picker>
           </transition>
         </div>
       </div>
@@ -56,15 +57,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.actionButtonToggle-enter-active,
-.actionButtonToggle-leave-active {
-  transition: all 0.5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .4s;
 }
-.actionButtonToggle-enter,
-.actionButtonToggle-leave {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
-
 .food-detail {
   background: #efefef;
 }
@@ -109,11 +109,20 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
       .price {
         color: red;
         font-size: 30px;
       }
+      .action-foodPicker{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
       .action-button {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
         padding: 10px 20px;
         display: inline-block;
         border-radius: 20px;
