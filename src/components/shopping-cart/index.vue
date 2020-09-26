@@ -1,60 +1,65 @@
 <template>
   <div class="shopping-card">
-    <div class="cart" @click="toggle" :class="{await_pay:totalCount>0}">
+    <div class="cart" @click="toggle" :class="{ await_pay: totalCount > 0 }">
       <div class="cart-icon">
         <img src="./shopping_cart.svg" alt />
-        <span class="badge" v-if="totalCount>0">{{totalCount}}</span>
+        <span class="badge" v-if="totalCount > 0">{{ totalCount }}</span>
       </div>
-      <span class="cart-price">￥ {{totalPrice}}</span>
+      <span class="cart-price">￥ {{ totalPrice }}</span>
     </div>
     <div class="desc">另需配送费￥4元</div>
-    <div @click="pay" class="minprice" :class="{highlight:totalPrice>=20}">
-      <span class="text">{{actionText}}</span>
+    <div @click="pay" class="minprice" :class="{ highlight: totalPrice >= 20 }">
+      <span class="text">{{ actionText }}</span>
     </div>
-    <div class="goods-container" v-show="visible">
-      <div @click="toggle" class="layer"></div>
-      <div class="goods">
-        <div class="head">
-          <div class="title">购物车</div>
-          <div class="clear" @click="clear">清空</div>
-        </div>
-        <div class="goods-wrapper">
-          <scroll ref="scroll">
-            <ul class="goods-list">
-              <li v-for="(item,index) in selectedFoods" :key="index" class="goods-item">
-                <div class="name">{{item.name}}</div>
-                <span class="price">{{item.price}}</span>
 
-                <div class="action">
-                  <food-picker :food-info="item"></food-picker>
-                </div>
-              </li>
-            </ul>
-          </scroll>
+    <!-- 展开购物车内容 -->
+    <transition name="shoppingCartToggle">
+      <div class="goods-container" v-show="visible">
+        <!-- 遮罩 -->
+        <div @click="toggle" class="layer"></div>
+        <!-- 购物车列表 -->
+        <div class="goods">
+          <div class="head">
+            <div class="title">购物车</div>
+            <div class="clear" @click="clear">清空</div>
+          </div>
+          <div class="goods-wrapper" ref="goodsWrapper">
+            <scroll ref="scroll">
+              <ul class="goods-list">
+                <li v-for="(item, index) in selectedFoods" :key="index" class="goods-item">
+                  <div class="name">{{ item.name }}</div>
+                  <span class="price">{{ item.price }}</span>
+
+                  <div class="action">
+                    <food-picker :food-info="item"></food-picker>
+                  </div>
+                </li>
+              </ul>
+            </scroll>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 <script>
 import FoodPicker from "@/components/food-picker";
-// import shoppingStore from "@/store/shopping-cart.js";
+
 export default {
   name: "shopping-cart",
   components: {
-    FoodPicker
+    FoodPicker,
   },
   data() {
     return {
-      //   goodsList: shoppingStore.goods,
-      visible: false
+      visible: false,
     };
   },
   props: {
     selectedFoods: {
       type: Array,
-      default: () => [{ price: 10, count: 3, name: "food-1" }]
-    }
+      default: () => [{ price: 10, count: 3, name: "food-1" }],
+    },
   },
   computed: {
     actionText() {
@@ -73,28 +78,33 @@ export default {
       return this.selectedFoods.reduce((prev, current) => {
         return prev + current.count * current.price;
       }, 0);
-    }
+    },
   },
   watch: {
-    visible() {
+    visible(newVal) {
       this.$nextTick(() => {
-        this.$refs.scroll.refresh();
+        if (newVal) {
+          this.$refs.goodsWrapper.style.height = this.$refs.goodsWrapper.clientHeight + "px";
+
+          this.$refs.scroll.refresh();
+        } else {
+          this.$refs.goodsWrapper.style.removeProperty("height");
+        }
       });
     },
     totalCount() {
       if (this.totalCount === 0) {
         this.hide();
       }
-    }
+    },
   },
-  
-  methods: {
 
-    async pay(){
+  methods: {
+    async pay() {
       try {
-        await this.$alert('支付','您需要支付'+this.totalPrice+'元','确定')
+        await this.$alert("支付", "您需要支付" + this.totalPrice + "元", "确定");
       } catch (error) {
-        return
+        return;
       }
     },
     async clear() {
@@ -102,10 +112,8 @@ export default {
         var result = await this.$confirm("清空购物车？");
       } catch (error) {
         return;
-         
       }
 
-      
       if (result === "confirm") {
         this.$emit("clear");
       }
@@ -121,11 +129,32 @@ export default {
     },
     hide() {
       this.visible = false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
+// 购物车切换动画
+.shoppingCartToggle-enter-active,
+.shoppingCartToggle-leave-active {
+  transition: all 0.4s;
+  .goods {
+    transition: transform 0.4s;
+  }
+  .layer {
+    transition: opacity 0.4s;
+  }
+}
+.shoppingCartToggle-enter,
+.shoppingCartToggle-leave-to {
+  .goods {
+    transform: translateY(100%);
+  }
+  .layer {
+    opacity: 0;
+  }
+}
+
 .shopping-card {
   display: flex;
   justify-content: space-between;
@@ -202,7 +231,7 @@ export default {
   }
 }
 .goods-wrapper {
-  height: 400px;
+  max-height: 400px;
   padding: 20px;
 
   background: #fff;
@@ -224,7 +253,7 @@ export default {
   bottom: 90px;
   width: 100%;
 
-  z-index: 1000;
+  z-index: -1;
 }
 
 .goods {
