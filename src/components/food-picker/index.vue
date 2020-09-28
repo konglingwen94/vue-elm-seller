@@ -8,12 +8,14 @@
     <transition name="fade">
       <div class="counter" v-show="foodInfo.count">{{ foodInfo.count }}</div>
     </transition>
-    <div class="add-wrapper" @click="add">
+    <div ref="addWrapper" class="add-wrapper" @click="add">
       <i class="iconfont add"></i>
     </div>
   </div>
 </template>
 <script>
+import createBall from "@/components/ball/main.js";
+import { log } from "util";
 export default {
   name: "food-picker",
   props: {
@@ -22,6 +24,7 @@ export default {
       default: () => ({}),
     },
   },
+
   methods: {
     reduce() {
       if (parseInt(this.foodInfo.count) > 0) {
@@ -30,6 +33,18 @@ export default {
     },
     add() {
       this.foodInfo.count++;
+
+      const pos = this.$refs.addWrapper.getBoundingClientRect();
+
+      const cartIconEl = document.getElementById("cartIcon");
+      const cartIconPos = cartIconEl.getBoundingClientRect();
+
+      const $ball = createBall({
+        startX: pos.left,
+        startY: pos.top,
+        endX: cartIconPos.left,
+        endY: cartIconPos.top,
+      });
     },
   },
 };
@@ -59,9 +74,11 @@ export default {
 
   display: flex;
   align-items: center;
+  .add-wrapper {
+    position: relative;
+  }
   .add-wrapper,
   .reduce-wrapper {
-   
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,7 +92,6 @@ export default {
   .counter {
     width: 80px;
     text-align: center;
-     
   }
 }
 </style>

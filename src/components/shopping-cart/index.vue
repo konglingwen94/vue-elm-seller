@@ -2,7 +2,7 @@
   <div class="shopping-card">
     <div class="cart" @click="toggle" :class="{ await_pay: totalCount > 0 }">
       <div class="cart-icon">
-        <img src="./shopping_cart.svg" alt />
+        <img id="cartIcon" src="./shopping_cart.svg" alt />
         <span class="badge" v-if="totalCount > 0">{{ totalCount }}</span>
       </div>
       <span class="cart-price">￥ {{ totalPrice }}</span>
