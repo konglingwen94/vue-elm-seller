@@ -35,16 +35,15 @@
       <img class="bulletin" src="./bulletin@3x.png" width="100%" height="100%" v-else-if="ratio === 3" />
       <img class="bulletin" src="./bulletin@2x.png" width="100%" height="100%" v-else-if="ratio === 1" />
     </div>
-  
   </div>
 </template>
 <script>
-const dpr = window.devicePixelRatio;
 export default {
   name: "icon",
   data() {
     return {
-      ratio: dpr,
+     
+      ratio: parseInt(document.documentElement.getAttribute("data-dpr")),
     };
   },
   props: {
@@ -56,11 +55,12 @@ export default {
   computed: {
     style() {
       return {
-        width: `${(this.width / 2) * dpr}px`,
-        height: `${(this.height / 2) * dpr}px`,
+        width: `${(this.width / 2) * this.ratio}px`,
+        height: `${(this.height / 2) * this.ratio}px`,
       };
     },
   },
+   
 };
 </script>
 <style scoped>
@@ -75,5 +75,6 @@ div {
   display: inline-block;
   display: inline-block;
   vertical-align: top;
+  
 }
 </style>

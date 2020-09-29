@@ -59,7 +59,7 @@ export default {
 <style lang="less" scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: all .4s;
+  transition: all 0.4s;
 }
 .fade-enter,
 .fade-leave-to {
@@ -73,18 +73,18 @@ export default {
   border-bottom: 1px solid #eee;
   background: #fff;
   .backward {
-    position: relative;
+    position: absolute;
     left: 20px;
     top: 20px;
     z-index: 100;
+    padding: 20px;
   }
   .backward-arrow {
-    position: absolute;
-    left: 15px;
-    top: 15px;
+    display: inline-block;
+
     width: 28px;
     height: 28px;
-    border: 2px solid #fff;
+    border: 3px solid #fff;
     border-width: 2px 2px 0 0;
     transform: rotate(-135deg);
   }
@@ -114,7 +114,7 @@ export default {
         color: red;
         font-size: 30px;
       }
-      .action-foodPicker{
+      .action-foodPicker {
         position: absolute;
         right: 0;
         bottom: 0;

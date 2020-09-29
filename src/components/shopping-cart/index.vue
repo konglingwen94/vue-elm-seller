@@ -28,7 +28,7 @@
               <ul class="goods-list">
                 <li v-for="(item, index) in selectedFoods" :key="index" class="goods-item">
                   <div class="name">{{ item.name }}</div>
-                  <span class="price">{{ item.price }}</span>
+                  <span class="price">{{ item.price * item.count }}</span>
 
                   <div class="action">
                     <food-picker :food-info="item"></food-picker>

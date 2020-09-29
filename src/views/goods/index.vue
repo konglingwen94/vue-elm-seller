@@ -58,7 +58,7 @@
                       <del v-if="food.oldprice" class="oldprice">￥{{ food.oldProce }}</del>
                     </div>
 
-                    <div class="picker-wrapper">
+                    <div class="picker-wrapper" @click.stop>
                       <food-picker :food-info="shopGoods[index].foods[key]"></food-picker>
                     </div>
                   </div>
@@ -342,9 +342,10 @@ export default {
         }
 
         .picker-wrapper {
+          padding: 20px;
           position: absolute;
           right: 30px;
-          bottom: -9px;
+          bottom: -30px;
         }
       }
     }

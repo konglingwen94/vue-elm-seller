@@ -55,7 +55,7 @@ export default {
       })
       .catch();
   },
-   
+
   methods: {
     handleTabChange(id) {
       this.activePanel = mapDynamicComponent[id];
@@ -64,7 +64,6 @@ export default {
       if (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)) {
         return { isSafari: true };
       }
-      
     },
   },
 

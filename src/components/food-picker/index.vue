@@ -1,5 +1,5 @@
 <template>
-  <div class="food-picker" @click.stop>
+  <div class="food-picker">
     <transition name="roll">
       <div v-show="foodInfo.count" class="reduce-wrapper" @click="reduce">
         <i class="iconfont reduce"></i>
@@ -15,7 +15,7 @@
 </template>
 <script>
 import createBall from "@/components/ball/main.js";
-import { log } from "util";
+
 export default {
   name: "food-picker",
   props: {
@@ -44,6 +44,7 @@ export default {
         startY: pos.top,
         endX: cartIconPos.left,
         endY: cartIconPos.top,
+        duration: "500ms",
       });
     },
   },
@@ -82,12 +83,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
   }
   .iconfont {
     color: #00a0dc;
-    font-size: 38px;
+    font-size: 50px;
   }
   .counter {
     width: 80px;
