@@ -22,6 +22,7 @@
   left: 0;
 }
 
+
 .directive-nowrap--playback {
   animation-name: horizontalScrolling !important;
   animation-iteration-count: infinite !important;

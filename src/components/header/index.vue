@@ -28,13 +28,12 @@
           <icon name="bulletin" width="30" height="20" />
           {{ seller.bulletin }}
         </span>
-        <!-- <i class="arrow"></i> -->
       </div>
     </div>
-
-    <div class="detail-wrapper" v-show="showDetail">
-      <header-detail @close="close" :seller="seller"></header-detail>
-    </div>
+    <transition name="fade">
+      <div class="detail-wrapper" v-show="showDetail">
+        <header-detail @close="close" :seller="seller"></header-detail></div
+    ></transition>
   </div>
 </template>
 
@@ -43,26 +42,36 @@ import HeaderDetail from "@/components/header-detail";
 export default {
   name: "shop-header",
   props: {
-    seller: Object
+    seller: Object,
   },
   data() {
     return {
-      showDetail: false
+      showDetail: false,
+      playing: false,
     };
   },
   components: {
-    HeaderDetail
+    HeaderDetail,
   },
   methods: {
     close() {
       this.showDetail = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .header {
   background-color: rgba(7, 17, 27, 0.5);
   color: #fff;
