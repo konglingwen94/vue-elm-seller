@@ -83,11 +83,11 @@ export default {
   },
   watch: {
     visible(newVal) {
-      this.$nextTick(() => {
+      setTimeout(() => {
         if (newVal) {
           this.$refs.scroll.refresh();
         }
-      });
+      }, 300);
     },
     totalCount() {
       if (this.totalCount === 0) {
@@ -229,7 +229,7 @@ export default {
 }
 .goods-wrapper {
   max-height: 400px;
-  padding: 20px;
+  padding: 0 20px;
 
   background: #fff;
 }
@@ -247,7 +247,7 @@ export default {
 
 .goods-container {
   position: absolute;
-  bottom: 90px;
+  bottom: 97px;
   width: 100%;
 
   z-index: -1;

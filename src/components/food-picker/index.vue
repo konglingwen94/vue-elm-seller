@@ -51,7 +51,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@duration: 1s;
+@duration: .6s;
 .roll-enter-active,
 .roll-leave-active {
   transition: transform @duration;
@@ -91,7 +91,7 @@ export default {
     font-size: 50px;
   }
   .counter {
-    width: 80px;
+    width: 100px;
     text-align: center;
   }
 }

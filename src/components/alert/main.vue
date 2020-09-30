@@ -25,24 +25,26 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+@duration: 0.3s;
+
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
-  
 }
 
 @keyframes scale {
-   
-  70% {
-    transform: scale(1.3);
+  0% {
+    transform: scale(0);
   }
- 
+  70% {
+    transform: scale(1.1);
+  }
 }
 .animation-enter {
-  animation: fadeIn .3s;
+  animation: fadeIn @duration;
   .alert-content {
-    animation: scale 0.3s linear;
+    animation: scale @duration linear;
   }
 }
 
