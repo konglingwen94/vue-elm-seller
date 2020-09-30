@@ -67,6 +67,7 @@ export default {
 #scroll-wrapper {
   overflow: hidden;
   height: 100%;
+  max-height: inherit;
 }
 .horizontal {
   white-space: nowrap;

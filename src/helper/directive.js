@@ -42,7 +42,7 @@ export default (Vue) => {
     update(el, { value = true }) {
       el.style.animationPlayState = value ? "running" : "paused";
 
-      // console.log("el.clonedNode", el.clonedNode);
+   
       el.clonedNode && el.clonedNode.style.setProperty("animation-play-state", value ? "running" : "paused");
     },
     unbind(el, { modifiers }) {

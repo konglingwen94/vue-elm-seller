@@ -44,6 +44,7 @@
 </template>
 <script>
 import FoodPicker from "@/components/food-picker";
+import { log } from "util";
 
 export default {
   name: "shopping-cart",
@@ -84,11 +85,7 @@ export default {
     visible(newVal) {
       this.$nextTick(() => {
         if (newVal) {
-          this.$refs.goodsWrapper.style.height = this.$refs.goodsWrapper.clientHeight + "px";
-
           this.$refs.scroll.refresh();
-        } else {
-          this.$refs.goodsWrapper.style.removeProperty("height");
         }
       });
     },
