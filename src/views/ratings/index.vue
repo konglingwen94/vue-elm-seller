@@ -77,7 +77,7 @@
   </scroll>
 </template>
 <script>
-import {fetchRatingList} from "@/request";
+import {fetchRatingList} from "@/helper/request";
 
 export default {
   name: "page-ratings",

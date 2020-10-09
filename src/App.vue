@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import request from "./request";
+import { fetchSellerData } from "@/helper/request";
 import TabBar from "./components/tab-bar";
 import Goods from "./views/goods/index.vue";
 import Shop from "./views/shop/index.vue";
@@ -48,8 +48,7 @@ export default {
     };
   },
   created() {
-    request
-      .get("/seller")
+    fetchSellerData()
       .then((response) => {
         this.seller = response;
       })

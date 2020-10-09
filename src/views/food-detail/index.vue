@@ -39,7 +39,7 @@
 <script>
 import FoodPicker from "@/components/food-picker";
 import Rating from "@/components/rating";
-import { fetchFoodsById } from "../../request";
+import { fetchFoodsById } from "@/helper/request";
 export default {
   components: {
     FoodPicker,

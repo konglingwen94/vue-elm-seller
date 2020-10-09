@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.NODE_ENV !== "production" ? "/api" : "/api",
+  baseURL:   "/api",
 });
 instance.interceptors.request.use(
   (config) => {
@@ -30,6 +30,9 @@ export const fetchFoodsById = (id) => {
 };
 export const fetchRatingList = () => {
   return instance.get(`/ratings`);
+};
+export const fetchSellerData = () => {
+  return instance.get(`/seller`);
 };
 
 export default instance;
