@@ -77,7 +77,7 @@
   </scroll>
 </template>
 <script>
-import request from "@/request";
+import {fetchRatingList} from "@/request";
 
 export default {
   name: "page-ratings",
@@ -140,8 +140,7 @@ export default {
   },
   created() {
     this.loading = true;
-    request
-      .get("/ratings")
+    fetchRatingList()
       .then((response) => {
         this.loading = false;
 
@@ -234,7 +233,7 @@ export default {
     display: flex;
     padding: 38px 0;
     &-item {
-      width: 120px;
+      padding:0 20px;
       line-height: 60px;
       text-align: center;
       margin-right: 30px;

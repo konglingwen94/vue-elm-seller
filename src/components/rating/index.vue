@@ -3,36 +3,35 @@
     <div class="ratings-content-types">
       <ul class="ratetype-options">
         <li
-          v-for="(option,index) in rateTypeList"
+          v-for="(option, index) in rateTypeList"
           :key="index"
           @click.stop="toggleRateType(option.type)"
           class="ratetype-item"
-          :class="[rateTypeClass(option.type),{active:option.type===rateType}]"
-          
+          :class="[rateTypeClass(option.type), { active: option.type === rateType }]"
         >
-          <span>{{option.label}}{{option.count}}</span>
+          <span>{{ option.label }}{{ option.count }}</span>
         </li>
       </ul>
       <div class="rate-switch">
-        <i @click.stop="toggleSwitchType" :class="{'on':switchType===1}" class="iconfont select"></i>
+        <i @click.stop="toggleSwitchType" :class="{ on: switchType === 1 }" class="iconfont select"></i>
         <span class="label-text">只看有内容的评价</span>
       </div>
     </div>
 
     <ul class="ratings-content-list">
-      <li v-for="(item,index) in renderList" :key="index" class="ratings-content-list-item">
+      <li v-for="(item, index) in renderList" :key="index" class="ratings-content-list-item">
         <!-- <div> -->
         <img class="avatar" width="100%" height="100%" :src="item.avatar" alt />
         <!-- </div> -->
         <div class="information">
           <div class="top">
-            <h3 class="nickname">{{item.username}}</h3>
-            <time>{{new Date(item.rateTime) | dateFormat}}</time>
+            <h3 class="nickname">{{ item.username }}</h3>
+            <time>{{ new Date(item.rateTime) | dateFormat }}</time>
           </div>
-          
-          <div class="content">{{item.text}}</div>
+
+          <div class="content">{{ item.text }}</div>
           <div class="recommendation">
-            <i class="iconfont" :class="item.rateType===0 ? 'thumb-up':'thumb-down'"></i>
+            <i class="iconfont" :class="item.rateType === 0 ? 'thumb-up' : 'thumb-down'"></i>
           </div>
         </div>
       </li>
@@ -44,11 +43,12 @@ export default {
   name: "rating",
   props: {
     data: {
-      type: Array
+      type: Array,
+      default: () => [],
     },
     rateTypeLabels: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   data() {
     return {
@@ -57,12 +57,12 @@ export default {
       rateTypeOptions: [
         { type: -1 },
         {
-          type: 0
+          type: 0,
         },
         {
-          type: 1
-        }
-      ]
+          type: 1,
+        },
+      ],
     };
   },
   computed: {
@@ -71,12 +71,12 @@ export default {
         return {
           ...typeItem,
           label: this.rateTypeLabels[index],
-          count: this.data.filter(item => {
+          count: this.data.filter((item) => {
             if (typeItem.type === -1) {
               return true;
             }
             return item.rateType === typeItem.type;
-          }).length
+          }).length,
         };
       });
     },
@@ -85,20 +85,20 @@ export default {
       if (this.rateType === -1) {
         renderList = this.data;
       }
-      renderList = this.data.filter(item => {
+      renderList = this.data.filter((item) => {
         if (this.rateType === -1) {
           return true;
         }
         return item.rateType === this.rateType;
       });
 
-      return renderList.filter(item => {
+      return renderList.filter((item) => {
         if (this.switchType === 1) {
           return item.text !== "";
         }
         return true;
       });
-    }
+    },
   },
   filters: {
     dateFormat(date) {
@@ -113,7 +113,7 @@ export default {
       const minute = date.getMinutes();
 
       return `${year}-${month}-${day} ${hours}:${minute}`;
-    }
+    },
   },
   methods: {
     rateTypeClass(type) {
@@ -134,8 +134,8 @@ export default {
       } else {
         this.switchType = 0;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -157,11 +157,11 @@ export default {
       text-align: center;
       margin-right: 30px;
       border-radius: 2px;
-      
-        background: #d6ecf8;
+
+      background: #d6ecf8;
       &.active {
         background-color: #00a0dc;
-        color: #fff;    
+        color: #fff;
 
         &.negative {
           background-color: #656565;

@@ -75,17 +75,17 @@
     <transition name="forward-slide">
       <div v-if="showFoodDetail" class="food-detail-wrapper">
         <scroll>
-          <food-detail @backward="backward" :data="currentFood"></food-detail>
+          <food-detail @backward="backward" :id="currentFood._id"></food-detail>
         </scroll>
       </div>
     </transition>
   </div>
 </template>
 <script>
-import request from "@/request";
 import FoodPicker from "@/components/food-picker";
 import ShoppingCart from "@/components/shopping-cart";
 import FoodDetail from "@/views/food-detail";
+import { fetchFoodsList, fetchMenuList } from "@/request";
 
 export default {
   components: {
@@ -203,14 +203,25 @@ export default {
         }
       }
     },
+    normalizeData([foodsData, menuData]) {
+       
+
+      menuData.forEach((menu) => {
+        menu.foods = foodsData.filter((food) => {
+          return food.menuID === menu._id;
+        });
+      });
+      return menuData;
+    },
   },
 
   created() {
     this.loading = true;
-    request
-      .get("/goods")
+    Promise.all([fetchFoodsList(), fetchMenuList()])
+
       .then((response) => {
-        this.data = response;
+        this.data = this.normalizeData(response);
+
         this.loading = false;
       })
       .then(() => {

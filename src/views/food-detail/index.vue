@@ -39,14 +39,25 @@
 <script>
 import FoodPicker from "@/components/food-picker";
 import Rating from "@/components/rating";
+import { fetchFoodsById } from "../../request";
 export default {
   components: {
     FoodPicker,
     Rating,
   },
   name: "food-detail",
+  data() {
+    return {
+      data: {},
+    };
+  },
   props: {
-    data: Object,
+    id: String,
+  },
+  created() {
+    fetchFoodsById(this.id).then((response) => {
+      this.data = response;
+    });
   },
   methods: {
     addToCart() {
