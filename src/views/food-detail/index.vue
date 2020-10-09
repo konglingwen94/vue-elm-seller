@@ -37,14 +37,10 @@
   </div>
 </template>
 <script>
-import FoodPicker from "@/components/food-picker";
-import Rating from "@/components/rating";
+
 import { fetchFoodsById } from "@/helper/request";
 export default {
-  components: {
-    FoodPicker,
-    Rating,
-  },
+   
   name: "food-detail",
   data() {
     return {

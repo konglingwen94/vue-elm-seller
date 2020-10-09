@@ -82,15 +82,12 @@
   </div>
 </template>
 <script>
-import FoodPicker from "@/components/food-picker";
-import ShoppingCart from "@/components/shopping-cart";
 import FoodDetail from "@/views/food-detail";
 import { fetchFoodsList, fetchMenuList } from "@/helper/request";
 
 export default {
   components: {
-    FoodPicker,
-    ShoppingCart,
+    
     FoodDetail,
   },
   data() {
