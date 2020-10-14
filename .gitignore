@@ -22,8 +22,8 @@ yarn-error.log*
 
 
 # Build files
-
-/server/dist
+dist
+server
 /test
 # Deploy files
 deploy.sh.local
