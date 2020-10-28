@@ -11,7 +11,7 @@
             :key="index"
             ref="menuItem"
           >
-            <icon v-if="item.type > 0" :name="getIconName(item.type)" width="24" height="24" />
+            <icon v-if="item.type >= 0" :name="getIconName(item.type)" width="24" height="24" />
             <span>{{ item.name }}</span>
             <span v-if="shopGoodsCount[index] > 0" class="shop_goods_count">{{ shopGoodsCount[index] }}</span>
           </li>
@@ -142,6 +142,8 @@ export default {
   methods: {
     getIconName(type) {
       switch (type) {
+        case 0:
+          return "decrease";
         case 1:
           return "discount";
         case 2:
