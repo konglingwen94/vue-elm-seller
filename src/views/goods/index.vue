@@ -13,15 +13,19 @@
           >
             <icon v-if="item.type >= 0" :name="getIconName(item.type)" width="24" height="24" />
             <span>{{ item.name }}</span>
-            <span v-if="shopGoodsCount[index] > 0" class="shop_goods_count">{{ shopGoodsCount[index] }}</span>
+            <span
+              v-if="shopGoodsCount[index] > 0"
+              class="shop_goods_count"
+            >{{ shopGoodsCount[index] }}</span>
           </li>
         </ul>
       </scroll>
       <div class="foodsScroll-wrapper">
         <!-- 固定在顶部的食品类型名称 -->
-        <div ref="stickyTitle" class="foods-title--sticky">
-          {{ data[currentIndex] && data[currentIndex].name }}
-        </div>
+        <div
+          ref="stickyTitle"
+          class="foods-title--sticky"
+        >{{ data[currentIndex] && data[currentIndex].name }}</div>
         <scroll
           ref="foodsScroll"
           @scroll-start="userScrolling = true"
@@ -32,9 +36,7 @@
           <ul class="foods-list">
             <li ref="foodsGroup" class="foods-group" v-for="(item, index) in data" :key="index">
               <dl class="foods-group-wrapper">
-                <dt class="foods-group-name">
-                  {{ item.name }}
-                </dt>
+                <dt class="foods-group-name">{{ item.name }}</dt>
 
                 <dd
                   @click="forward(food)"
@@ -87,8 +89,7 @@ import { fetchFoodsList, fetchMenuList } from "@/helper/request";
 
 export default {
   components: {
-    
-    FoodDetail,
+    FoodDetail
   },
   data() {
     return {
@@ -99,13 +100,13 @@ export default {
       currentIndex: 0,
       currentFood: {},
       loading: false,
-      userScrolling: false,
+      userScrolling: false
     };
   },
 
   computed: {
     shopGoodsCount() {
-      return this.shopGoods.map((good) => {
+      return this.shopGoods.map(good => {
         return good.foods.reduce((prev, food) => {
           return prev + food.count;
         }, 0);
@@ -113,8 +114,8 @@ export default {
     },
     shoppingCartFoods() {
       const shoppingCartFoods = [];
-      this.shopGoods.forEach((good) => {
-        good.foods.forEach((food) => {
+      this.shopGoods.forEach(good => {
+        good.foods.forEach(food => {
           if (food.count > 0) {
             shoppingCartFoods.push(food);
           }
@@ -137,7 +138,7 @@ export default {
       }
 
       return copyData;
-    },
+    }
   },
   methods: {
     getIconName(type) {
@@ -163,15 +164,20 @@ export default {
       this.showFoodDetail = false;
     },
     clearShoppingCart() {
-      this.data.forEach((good) => {
-        good.foods.forEach((food) => {
+      this.data.forEach(good => {
+        good.foods.forEach(food => {
           food.count = 0;
         });
       });
     },
     selectMenu(index) {
       const target = this.$refs.foodsGroup[index];
-      this.$refs.menuScroll.scrollToElement(this.$refs.menuItem[index], 300, 0, true);
+      this.$refs.menuScroll.scrollToElement(
+        this.$refs.menuItem[index],
+        300,
+        0,
+        true
+      );
       this.$refs.foodsScroll.scrollToElement(target, 300);
       this.currentIndex = index;
     },
@@ -188,38 +194,45 @@ export default {
         elm.style.removeProperty("display");
       }
       for (let index = 0; index < this.sectionHeight.length; index++) {
-        if (distanceY >= this.sectionHeight[index] && distanceY < this.sectionHeight[index + 1]) {
+        if (
+          distanceY >= this.sectionHeight[index] &&
+          distanceY < this.sectionHeight[index + 1]
+        ) {
           this.currentIndex = index;
-          this.$refs.menuScroll.scrollToElement(this.$refs.menuItem[index], 300, 0, true);
+          this.$refs.menuScroll.scrollToElement(
+            this.$refs.menuItem[index],
+            300,
+            0,
+            true
+          );
           elm.style.transform = "translateY(0)";
         } else if (
           distanceY >= this.sectionHeight[index] - this.stickyElmHeight &&
           distanceY < this.sectionHeight[index]
         ) {
-          const translateY = this.sectionHeight[index] - this.stickyElmHeight - distanceY;
+          const translateY =
+            this.sectionHeight[index] - this.stickyElmHeight - distanceY;
 
           elm.style.transform = `translateY(${translateY}px)`;
         }
       }
     },
-    normalizeData([foodsData, menuData]) {
-       
-
-      menuData.forEach((menu) => {
-        menu.foods = foodsData.filter((food) => {
+    _normalizeData([foodsData, menuData]) {
+      menuData.forEach(menu => {
+        menu.foods = foodsData.filter(food => {
           return food.menuID === menu._id;
         });
       });
-      return menuData;
-    },
+      return menuData.filter(item => item.foods.length);
+    }
   },
 
   created() {
     this.loading = true;
     Promise.all([fetchFoodsList(), fetchMenuList()])
 
-      .then((response) => {
-        this.data = this.normalizeData(response);
+      .then(response => {
+        this.data = this._normalizeData(response);
 
         this.loading = false;
       })
@@ -237,10 +250,10 @@ export default {
           this.stickyElmHeight = this.$refs.stickyTitle.clientHeight;
         });
       })
-      .catch((err) => {
+      .catch(err => {
         this.loading = false;
       });
-  },
+  }
 };
 </script>
 
