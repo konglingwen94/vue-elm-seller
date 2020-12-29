@@ -126,6 +126,13 @@ npm run build
 
 <img src="http://123.56.124.33:8080/vue-elm-sell/good.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/rating.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/shop.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/food-detail.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/header-detail.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/alert.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/confirm.png" width="40%">
 
+## 项目总结
+
+- [Vue全新技术栈重构黄老师饿了么商家应用](https://juejin.cn/post/6844904202624303118)
+- [Koa+Mongodb 搭建商家店铺服务端项目总结](https://juejin.cn/post/6907803934031609863)
+- [Vue+ElementUI搭建商家店铺管理后台项目总结](https://juejin.cn/post/6906796790390095879)
+
+
 ## 支持
 
 本项目是受 [https://github.com/ustbhuangyi/vue-sell](https://github.com/ustbhuangyi/vue-sell)此应用界面功能的启发并由个人独立完成（源代码不同）。项目技术实现上都是自己精心思考研究后开发出来的，与此同时也练习了一次`vue`项目的开发流程，个人完成项目开源后也有很大的收获。希望对看到此项目的你在学习上能有所帮助，喜欢本项目请右上角`star`一下:grin:，谢谢！我会持续开源更多好玩有趣的项目出来。
