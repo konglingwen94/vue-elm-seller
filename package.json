@@ -9,7 +9,7 @@
     "server": "node server/app.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "better-scroll": "^1.15.2",
     "core-js": "^3.6.4",
     "lib-flexible": "^0.3.2",
