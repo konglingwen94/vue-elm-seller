@@ -3,7 +3,7 @@ module.exports = {
 
   publicPath: process.env.NODE_ENV !== "production" ? "/" : "./",
   devServer: {
-    // proxy: "http://123.56.124.33:5000",
+    // proxy: "http://123.57.204.48:5000",
     proxy: "http://localhost:5000",
   },
 };

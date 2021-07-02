@@ -2,9 +2,9 @@
 
 ## 线上预览
 
-[http://123.56.124.33:5000/](http://123.56.124.33:5000/)
+[http://123.57.204.48:5000/](http://123.57.204.48:5000/)
 
-![qcode](http://123.56.124.33:8080/vue-elm-sell/qcode.png)
+![qcode](http://123.57.204.48:8080/vue-elm-sell/qcode.png)
 
 ## 安装依赖
 
@@ -124,7 +124,7 @@ npm run build
 
 ## 项目截图
 
-<img src="http://123.56.124.33:8080/vue-elm-sell/good.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/rating.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/shop.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/food-detail.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/header-detail.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/alert.png" width="40%"><img src="http://123.56.124.33:8080/vue-elm-sell/confirm.png" width="40%">
+<img src="http://123.57.204.48:8080/vue-elm-sell/good.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/rating.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/shop.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/food-detail.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/header-detail.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/alert.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/confirm.png" width="40%">
 
 ## 支持
 
