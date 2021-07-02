@@ -1,4 +1,4 @@
-# vue-elm-mall
+# vue-elm-seller
 
 ## 线上预览
 
@@ -37,9 +37,9 @@ npm run build
 - [x] 商家信息展示
 - [x] 商家收藏
 - [x] 商家详情弹窗
-- [ ] 商品滚动列表菜单标题吸顶
-- [ ] 页面布局优化
-- [ ] 添加商品到购物车时的动画效果
+- [x] 商品滚动列表菜单标题吸顶
+- [x] 添加商品到购物车时的动画效果
+- [ ] 项目整体优化
 
 ## 技术栈
 
@@ -125,6 +125,13 @@ npm run build
 ## 项目截图
 
 <img src="http://123.57.204.48:8080/vue-elm-sell/good.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/rating.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/shop.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/food-detail.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/header-detail.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/alert.png" width="40%"><img src="http://123.57.204.48:8080/vue-elm-sell/confirm.png" width="40%">
+
+## 项目总结
+
+- [Vue全新技术栈重构黄老师饿了么商家应用](https://juejin.cn/post/6844904202624303118)
+- [Koa+Mongodb 搭建商家店铺服务端项目总结](https://juejin.cn/post/6907803934031609863)
+- [Vue+ElementUI搭建商家店铺管理后台项目总结](https://juejin.cn/post/6906796790390095879)
+
 
 ## 支持
 
